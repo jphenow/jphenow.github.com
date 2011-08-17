@@ -24,7 +24,7 @@ layout: default
     </footer>
   {% endunless %}
 </article>
-{% if site.disqus_short_name and page.comments == true %}
+{% if site.disqus_short_name and page.comments != false %}
   <section>
     <h1>Comments</h1>
     <div id="disqus_thread">{% include post/disqus_thread.html %}</div>
