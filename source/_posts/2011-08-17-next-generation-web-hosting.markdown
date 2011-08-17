@@ -3,7 +3,7 @@ layout: post
 title: "Next Generation Web Hosting?"
 date: 2011-08-17 10:38
 comments: true
-categories: 
+categories: web
 ---
 
 As I consider trying NoSQL and some other bleeding-edge tools I've come to realize that very few people will let you host these new technologies in the traditional shared-hosting sense. I've found some ways around these restrictions but I continue to keep my out for something out of the ordinary or new that I could try out. 
