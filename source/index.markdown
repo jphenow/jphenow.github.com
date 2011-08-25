@@ -19,4 +19,11 @@ I’m a Computer Science student at Saint John’s University in Collegeville, M
 
 In recent years I have become a big advocate for Open Source and a Linux fanatic. I try my best to keep up on the current cutting-edge of technology and the politics that surround them. My main focus right now, though, is to build and Open Source one of my own projects.
 
-[![LinkedIn](/images/mediaicons/PNG/32px/linkedin.png)](http://www.linkedin.com/pub/jon-phenow/20/5b/3bb) [![Github](/images/mediaicons/PNG/32px/github.png)](http://github.com/jphenow)
+<div>
+	<a href="http://www.linkedin.com/pub/jon-phenow/20/5b/3bb" style="white-space:nowrap">
+		<img src="/images/mediaicons/PNG/32px/linkedin.png" alt="LinkedIn" style="margin:5px;float:right;"/>
+	</a>
+	<a href="http://github.com/jphenow" style="white-space:nowrap">
+		<img alt="Github" src="/images/mediaicons/PNG/32px/github.png" style="margin:5px;float:right;"/>
+	</a>
+</div>
