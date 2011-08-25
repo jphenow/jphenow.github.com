@@ -2,7 +2,7 @@
 #      Main Configs       #
 # ----------------------- #
 
-url: http://jphenow.com/octopress
+url: http://jphenow.com/
 title: Jon Phenow's Blog
 subtitle: Jon Phenow using the blogging framework for hackers.
 author: Jon Phenow
@@ -14,7 +14,7 @@ simple_search: http://google.com/search
 date_format: "ordinal"
 
 # RSS / Email (optional) subscription links (change if using something like Feedburner)
-subscribe_rss: /octpress/atom.xml
+subscribe_rss: /atom.xml
 subscribe_email:
 # RSS feeds can list your email address if you like
 email:
@@ -24,7 +24,7 @@ email:
 # ----------------------- #
 
 # If publishing to a subdirectory as in http://site.com/project set 'root: /project'
-root: /octopress
+root: /
 permalink: /blog/:year/:month/:day/:title/
 source: source
 destination: public
@@ -91,7 +91,7 @@ disqus_short_name: jphenow
 disqus_show_comment_count: false
 
 # Google Analytics
-google_analytics_tracking_id:
-   
+google_analytics_tracking_id: UA-11308027-3
+
 # Facebook Like
-facebook_like: true   
+facebook_like: true
