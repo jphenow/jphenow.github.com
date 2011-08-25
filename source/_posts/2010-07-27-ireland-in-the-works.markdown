@@ -1,0 +1,13 @@
+---
+layout: post
+title: "Ireland: in the works"
+date: 2010-07-27
+comments: true
+categories: ireland
+---
+
+I think eventually I'll use this venue to post my crazy ideas about politics, life, and, my personal favorite, Technology. For now, though, let's just use this as a medium for which I can convey to a number of people, my experiences in Ireland. I promise I won't use this to brag too much about how great of an experience I expect I may have, but rather it is something I can use so that I don't have to write a long email each day and possibly keep track of a number of things I don't care to have to keep track of. So bookmark this page and keep an eye on my Facebook updates over the next coming months for minor updates. Once I'm over there I'll do my best to give you all a show, and perhaps a smile.
+
+Before I set this off as my first post for the blog that I'll use for my Ireland trip, I think I'll give some run down as to what my plans actually are, if they can even be called that. Three friends of mine, along with myself, have decided to spend two weeks catching trains and sleeping wherever we fall. This gives me two feelings, in my gut. The First:  "Finally I get to go out, be adventuresome, and explore lands unseen (to me), what a great time there is to be had by all." The Second: "Oh sh*t I'm going to die, get lost and get eaten by the absurd Europeans." Well, no I'm not actually that worried about the second one, but I really am starting to get a mix of emotions here, people. A few months ago we picked up our tickets to Paris. Luckily for us: one of our friends knows someone in paris who will allow us to leave our larger luggage at her apartment while we travel. We also decided to pick up a 15-day Euro-Rail pass. And so it was decided: kick-off August 18th and travel until about September 2nd, just in time for us to get to Ireland for class. Later on in this whole series of planning and buying, one of us finally realized what our flight to Europe looked like. When we were searching, the only thing on our mind was "lets get it as cheap as possible" and I'll be honest we're still glad we did that. We did notice, however, while looking at the ticket a touch more closely, that we leave the evening of the 18th, land in Reykjavik at about 6:30AM, then don't fly out again until about 1AM!! So we have a long lay-over ahead of us but hey, at least we'll be on our way. All we have left to do is pick up some rail passes and we're all set to go.
+
+I look forward to even this part of my trip (writing to you all) as I believe it will help any home-sickness, while I pretend to be talking to you all from home, thinking of what about my trip you'd enjoy hearing.
