@@ -17,7 +17,7 @@ This is a terribly simple and hacked up script that will pull in all of your Wor
  * Delete older revisions of posts that were downloaded
  * Add `categories` to YAML at top of each post
  * There's an odd issue with UTF-8 conversion
-  * My Vim highlighted the weird spaces, but I had to go through and delete odd-looking characters
+	* My Vim highlighted the weird spaces, but I had to go through and delete odd-looking characters
 
 If you don't tend to that UTF-8 issue running `rake generate` will fail. I didn't experience this for all posts, but it definitely threw me off, so I apologize about that about the script, but I will see if there's a more sound way to handle that via the script.
 
