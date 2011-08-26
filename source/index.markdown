@@ -6,9 +6,7 @@ footer: true
 ---
 
 
-<div style="padding:0px 25px 0px 0px;float:left;">
-	<img alt="Jon Phenow" src="/images/phenow.jpg" />
-</div>
+{% img left /images/phenow.jpg Jon Phenow %}
 #### Octopress!?
 
 In my exploration of [Ruby on Rails](http://rubyonrails.org/) I've come across this great blogging framework and begun to embrace it. Finally I found a blogging framework that allows for easy changes and deployment for people who are used to using [git](http://git-scm.com/) and [VIm](http://www.vim.org).
@@ -19,11 +17,6 @@ I’m a Computer Science student at Saint John’s University in Collegeville, M
 
 In recent years I have become a big advocate for Open Source and a Linux fanatic. I try my best to keep up on the current cutting-edge of technology and the politics that surround them. My main focus right now, though, is to build and Open Source one of my own projects.
 
-<div>
-	<a href="http://www.linkedin.com/pub/jon-phenow/20/5b/3bb" style="white-space:nowrap">
-		<img src="/images/mediaicons/PNG/32px/linkedin.png" alt="LinkedIn" style="margin:5px;float:right;"/>
-	</a>
-	<a href="http://github.com/jphenow" style="white-space:nowrap">
-		<img alt="Github" src="/images/mediaicons/PNG/32px/github.png" style="margin:5px;float:right;"/>
-	</a>
-</div>
+
+[{% img right /images/mediaicons/PNG/32px/linkedin.png LinkedIn %}](http://www.linkedin.com/pub/jon-phenow/20/5b/3bb)
+[{% img right /images/mediaicons/PNG/32px/github.png Github %}](http://github.com/jphenow)
