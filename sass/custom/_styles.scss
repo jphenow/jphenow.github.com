@@ -29,8 +29,8 @@ body > header {
     &:after {
       content: "";
       position: absolute; left: 0; right: 0; top: .1em;
-      height: image-height('logo.png');
-      @include replace-text('logo.png');
+      //height: image-height('logo.png');
+      //@include replace-text('logo.png');
     }
   }
   h2 {
@@ -72,8 +72,8 @@ body > header {
   @media only screen and (min-width: 990px) {
     font-size: 1.1em;
     h1:after {
-      width: image-width('logo.png');
-      height: image-height('logo.png');
+      //width: image-width('logo.png');
+      //height: image-height('logo.png');
     }
   }
 }
