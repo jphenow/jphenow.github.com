@@ -4,7 +4,7 @@ require "stringex"
 
 ## -- Rsync Deploy config -- ##
 # Be sure your public key is listed in your server's ~/.ssh/authorized_keys file
-ssh_user       = "j_phenow"
+ssh_user       = "jp"
 ssh_port       = "22"
 document_root  = "~/jphenow.com/"
 deploy_default = "rsync"
