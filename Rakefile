@@ -7,7 +7,6 @@ require "stringex"
 ssh_user       = "jp"
 ssh_port       = "22"
 document_root  = "~/jphenow.com/"
-document_root  = "~/website.com/"
 rsync_delete   = true
 deploy_default = "rsync"
 
