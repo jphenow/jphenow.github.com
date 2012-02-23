@@ -3,15 +3,21 @@
 article li { em { color: mix($text-color-light, $text-color); }}
 
 @include font-face("Bebas-Neue", font-files("bebasneue-web.woff", woff, "bebasneue-web.ttf", truetype, "bebasneue-web.svg#BebasNeueRegular", svg), $eot: "bebasneue-web.eot" );
+@import "compass";
+@import "compass/css3";
 
+body {@include box-shadow(rgba(#313334, 0.4) 0 0 25px, rgba(#313334, 0.2) 0 0 3px 1px inset);}
 body > header h1 {
-  font-family: "Bebas-Neue", serif;
+  //font-family: "Bebas-Neue", serif;
   text-transform: uppercase;
   font-weight: normal;
 }
 
 body > header {
   font-size: .7em;
+  @include background-image(linear-gradient(top left, #111111, #555555));
+  margin-top: 15px;
+  @include border-top-radius(10px);
   hgroup {
     text-align: center;
     position: relative;
@@ -35,6 +41,7 @@ body > header {
   }
   h2 {
     font-size: 1.6em;
+    padding-top: 15px;
     position: relative; top: .4em;
   }
   @media only screen and (min-width: 400px) {
