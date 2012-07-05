@@ -1,1 +1,5 @@
-rvm use 1.9.2
+rvm --create ruby-1.9.3-p125@OctoBlog
+# Ensure that Bundler is installed, install it if it is not.
+if ! command -v bundle > /dev/null; then
+  gem install bundler
+fi
