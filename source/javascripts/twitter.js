@@ -1,82 +1,92 @@
-// JSON-P Twitter fetcher for Octopress
-// (c) Brandon Mathis // MIT Lisence
-function getTwitterFeed(user, count, replies) {
-  var feed = new jXHR();
+(function($){
+	$.fn.getTwitterFeed = function(userid, count, reply){
+		var banner = $(this),
+			feed = banner.find('.feed'),
+			interval = 10000,
+			speed = 500;
 
-  feed.onerror = function (msg,url) {
-    $('#tweets li.loading').addClass('error').text("Twitter's busted");
-  }
-  feed.onreadystatechange = function(data){
-    if (feed.readyState === 4) {
-      var tweets = new Array();
-      var i = 0;
-      for (i in data){
-        if(tweets.length < count){
-          if(replies || data[i].in_reply_to_user_id == null){
-            tweets.push(data[i]);
-          }
-        }
-      }
-      showTwitterFeed(tweets, user);
-    }
-  };
-  feed.open("GET","http://twitter.com/statuses/user_timeline/"+user+".json?trim_user=true&count="+(parseInt(count)+60)+"&callback=?");
-  feed.send();
-}
+		var linkify = function(text){
+			text = text.replace(/(https?:\/\/)([\w\-:;?&=+.%#\/]+)/gi, '<a href="$1$2">$2</a>').replace(/(^|\W)@(\w+)/g, '$1<a href="http://twitter.com/$2">@$2</a>').replace(/(^|\W)#(\w+)/g, '$1<a href="http://search.twitter.com/search?q=%23$2">#$2</a>');
 
-function showTwitterFeed(tweets, twitter_user){
-  var timeline = document.getElementById('tweets');
-  timeline.innerHTML='';
-  for (t in tweets){
-    timeline.innerHTML+='<li>'+'<p>'+'<a href="http://twitter.com/'+twitter_user+'/status/'+tweets[t].id_str+'">'+prettyDate(tweets[t].created_at)+'</a>'+linkifyTweet(tweets[t].text.replace(/\n/g, '<br>'))+'</p>'+'</li>';
-  }
-}
-function linkifyTweet(text){
-  return text.replace(/(https?:\/\/)([\w\-:;?&=+.%#\/]+)/gi, '<a href="$1$2">$2</a>')
-    .replace(/(^|\W)@(\w+)/g, '$1<a href="http://twitter.com/$2">@$2</a>')
-    .replace(/(^|\W)#(\w+)/g, '$1<a href="http://search.twitter.com/search?q=%23$2">#$2</a>');
-}
+			return text;
+		}
 
+		var relativeDate = function(date){
+			if (navigator.appName === 'Microsoft Internet Explorer') return '';
 
+			var unit = {
+				now: 'Now',
+				minute: '1 min',
+				minutes: ' mins',
+				hour: '1 hr',
+				hours: ' hrs',
+				day: 'Yesterday',
+				days: ' days',
+				week: '1 week',
+				weeks: ' weeks'
+			};
 
-// jXHR.js (JSON-P XHR) | v0.1 (c) Kyle Simpson | MIT License | http://mulletxhr.com/
-// uncompressed version available in source/javascripts/libs/jXHR.js
-(function(c){var b=c.setTimeout,d=c.document,a=0;c.jXHR=function(){var e,g,n,h,m=null;function l(){try{h.parentNode.removeChild(h)}catch(o){}}function k(){g=false;e="";l();h=null;i(0)}function f(p){try{m.onerror.call(m,p,e)}catch(o){throw new Error(p)}}function j(){if((this.readyState&&this.readyState!=="complete"&&this.readyState!=="loaded")||g){return}this.onload=this.onreadystatechange=null;g=true;if(m.readyState!==4){f("Script failed to load ["+e+"].")}l()}function i(o,p){p=p||[];m.readyState=o;if(typeof m.onreadystatechange==="function"){m.onreadystatechange.apply(m,p)}}m={onerror:null,onreadystatechange:null,readyState:0,open:function(p,o){k();internal_callback="cb"+(a++);(function(q){c.jXHR[q]=function(){try{i.call(m,4,arguments)}catch(r){m.readyState=-1;f("Script failed to run ["+e+"].")}c.jXHR[q]=null}})(internal_callback);e=o.replace(/=\?/,"=jXHR."+internal_callback);i(1)},send:function(){b(function(){h=d.createElement("script");h.setAttribute("type","text/javascript");h.onload=h.onreadystatechange=function(){j.call(h)};h.setAttribute("src",e);d.getElementsByTagName("head")[0].appendChild(h)},0);i(2)},setRequestHeader:function(){},getResponseHeader:function(){return""},getAllResponseHeaders:function(){return[]}};k();return m}})(window);
+			var current = new Date(),
+				tweet = new Date(date),
+				diff = (((current.getTime() + (1 * 60000)) - tweet.getTime()) / 1000),
+				day_diff = Math.floor(diff / 86400);
+			
+			if (day_diff == 0){
+				if (diff < 60) return unit.now;
+				else if (diff < 120) return unit.minute;
+				else if (diff < 3600) return Math.floor(diff / 60) + unit.minutes;
+				else if (diff < 7200) return unit.hour;
+				else if (diff < 86400) return Math.floor(diff / 3600) + unit.hours;
+				else return '';
+			} else if (day_diff == 1) {
+				return unit.day;
+			} else if (day_diff < 7) {
+				return day_diff + unit.days;
+			} else if (day_diff == 7) {
+				return unit.week;
+			} else if (day_diff > 7) {
+				return Math.ceil(day_diff / 7) + unit.weeks;
+			} else {
+				return '';
+			}
+		}
 
+		if ($(window).width() > 600){
+			var url = 'https://api.twitter.com/1/statuses/user_timeline/'+userid+'.json?count='+count+'&exclude_replies='+(reply ? '0' : '1')+'&trim_user=true&callback=?';
+			banner.show();
+			$.getJSON(url, function(json){
+				var length = json.length,
+					fragment = document.createDocumentFragment(),
+					counts = 0,
+					timeout;
 
-/* Sky Slavin, Ludopoli. MIT license.  * based on JavaScript Pretty Date * Copyright (c) 2008 John Resig (jquery.com) * Licensed under the MIT license.  */
+				for (var i=0; i<length; i++){
+					var item = document.createElement('li');
+					item.innerHTML = linkify(json[i].text) + '<small>'+relativeDate(json[i].created_at)+'</small>';
+					fragment.appendChild(item);
+				}
 
-function prettyDate(time) {
-  if (navigator.appName == 'Microsoft Internet Explorer') {
-    return "<span>&infin;</span>"; // because IE date parsing isn't fun.
-  };
+				var play = function(){
+					timeout = setTimeout(function(){
+						feed.animate({top: '-='+30}, speed, function(){
+							$(this).append($(this).children().eq(counts).clone());
+							counts++;
+							play();
+						});
+					}, interval);
+				}
 
-  var say = {};
-  say.just_now = " now",
-  say.minute_ago = "1m",
-  say.minutes_ago = "m",
-  say.hour_ago = "1h",
-  say.hours_ago = "h",
-  say.yesterday = "1d",
-  say.days_ago = "d",
-  say.weeks_ago = "w"
+				var pause = function(){
+					clearTimeout(timeout);
+				}
 
-  var current_date = new Date();
-  current_date_time = current_date.getTime();
-  current_date_full = current_date_time + (1 * 60000);
-  var date = new Date(time);
-  var diff = ((current_date_full - date.getTime()) / 1000);
-  var day_diff = Math.floor(diff / 86400);
+				banner.on('mouseenter', pause).on('mouseleave', play)
+				.children('.loading').hide().end()
+				.children('.container').show()
+				.children('.feed').append(fragment);
 
-  if (isNaN(day_diff) || day_diff < 0) return "<span>&infin;</span>";
-
-  return day_diff == 0 && (
-    diff < 60 && say.just_now ||
-    diff < 120 && say.minute_ago ||
-    diff < 3600 && Math.floor(diff / 60) + say.minutes_ago ||
-    diff < 7200 && say.hour_ago ||
-    diff < 86400 && Math.floor(diff / 3600) + say.hours_ago) ||
-    day_diff == 1 && say.yesterday ||
-    day_diff < 7 && day_diff + say.days_ago ||
-    day_diff > 7 && Math.ceil(day_diff / 7) + say.weeks_ago;
-}
+				play();
+			});
+		}
+	};
+})(jQuery);
