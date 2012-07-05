@@ -6,7 +6,7 @@ footer: true
 ---
 
 
-{% img left /images/phenow.jpg Jon Phenow %}
+{% img center /images/jphenow.jpeg Jon Phenow %}
 #### Octopress!?
 
 In my exploration of [Ruby on Rails](http://rubyonrails.org/) I've come across this great blogging framework and begun to embrace it. Finally I found a blogging framework that allows for easy changes and deployment for people who are used to using [git](http://git-scm.com/) and [VIm](http://www.vim.org).
