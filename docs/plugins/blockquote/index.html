@@ -1,0 +1,196 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Blockquote - JPhenow</title>
+	<meta name="author" content="Jon Phenow">
+
+	
+	<meta name="description" content="The blockquote plugin takes and author, source, title and quote, and outputs semantic HTML. Syntax {% blockquote [author[, source]] [link] [ &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="JPhenow" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">JPhenow</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/blog/archives">Articles</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/blog/archives">Articles</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:jphenow.github.com">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		<a class="twitter" href="http://twitter.com/jphenow" title="Twitter">Twitter</a>
+		
+		
+		<a class="github" href="https://github.com/jphenow" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:jphenow.github.com">
+	</form>
+</nav>
+
+</header>
+	
+<div id="banner" class="inner">
+	<div class="container">
+		<ul class="feed"></ul>
+	</div>
+	<small><a href="http://twitter.com/jphenow">jphenow</a> @ <a href="http://twitter.com">Twitter</a></small>
+	<div class="loading">Loading...</div>
+</div>
+<script src="/javascripts/twitter.js"></script>
+<script type="text/javascript">
+	(function($){
+		$('#banner').getTwitterFeed('jphenow', 3, false);
+	})(jQuery);
+</script>
+
+	<div id="content" class="inner"><article class="page">
+    
+    <h1 class="title">Blockquote</h1>
+    
+    <div class="entry-content"><p>The blockquote plugin takes and author, source, title and quote, and outputs semantic HTML.</p>
+
+<h4>Syntax</h4>
+
+<pre><code>{% blockquote [author[, source]] [link] [source_link_title] %}
+Quote string
+{% endblockquote %}
+</code></pre>
+
+<p>You&#8217;ll notice there are two entries for <code>source</code>; one after <code>author</code>, and one after <code>link</code>. If you are citing from a printed work or a speech or something you cannot link to,
+use the first method <code>Author's Name, Cited Work</code>. If you&#8217;re going to link to the work, omit the first source method, and add a source title after the link <code>Author's Name http://source.com Article title</code>.</p>
+
+<h4>Examples</h4>
+
+<p>Blockquote arguments are optional, you can output a plain blockquote like this.</p>
+
+<pre><code>{% blockquote %}
+Last night I lay in bed looking up at the stars in the sky and I thought to myself, where the heck is the ceiling.
+{% endblockquote %}
+</code></pre>
+
+<blockquote><p>Last night I lay in bed looking up at the stars in the sky and I thought to myself, where the heck is the ceiling.</p></blockquote>
+
+
+<p><strong>Quote from a printed work.</strong></p>
+
+<pre><code>{% blockquote Douglas Adams, The Hichhikers Guide to the Galaxy %}
+Flying is learning how to throw yourself at the ground and miss.
+{% endblockquote %}
+</code></pre>
+
+<blockquote><p>Flying is learning how to throw yourself at the ground and miss.</p><footer><strong>Douglas Adams</strong> <cite>The Hitchhikers Guide to the Galaxy</cite></footer></blockquote>
+
+
+<p><strong>Quote from Twitter</strong></p>
+
+<pre><code>{% blockquote @allanbranch https://twitter.com/allanbranch/status/90766146063712256 %}
+Over the past 24 hours I've been reflecting on my life &amp; I've realized only one thing. I need a medieval battle axe.
+{% endblockquote %}
+</code></pre>
+
+<blockquote><p>Over the past 24 hours I&#8217;ve been reflecting on my life & I&#8217;ve realized only one thing. I need a medieval battle axe.</p><footer><strong>@allanbranch</strong> <cite><a href='https://twitter.com/allanbranch/status/90766146063712256'>twitter.com/allanbranch/status/&hellip;</a></cite></footer></blockquote>
+
+
+<p><strong>Quote from an article on the web</strong></p>
+
+<pre><code>{% Seth Godin http://sethgodin.typepad.com/seths_blog/2009/07/welcome-to-island-marketing.html Welcome to Island Marketing %}
+Every interaction is both precious and an opportunity to delight.
+{% endblockquote %}
+</code></pre>
+
+<blockquote><p>Every interaction is both precious and an opportunity to delight.</p><footer><strong>Seth Godin</strong> <cite><a href='http://sethgodin.typepad.com/seths_blog/2009/07/welcome-to-island-marketing.html'>Welcome to Island Marketing</a></cite></footer></blockquote>
+
+
+<p>For those who appreciate the little things, you&#8217;ll notice in the Twitter example above, the url is truncated and drops the protocol segment.
+Sometimes (like with Twitter) ading a link title doesn&#8217;t really make sense, but showing the full url is noisy and distracting.
+For this reason, the blockquote plugin automatically strips out the protocol, and if the url is longer than 32 characters it truncates the url on a forward slash for beauty&#8217;s sake.</p>
+</div>
+</article>
+
+
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2012
+
+    Jon Phenow
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'jphenow';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-11308027-3']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+</body>
+</html>

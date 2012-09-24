@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: rails | JPhenow]]></title>
+  <link href="http://jphenow.github.com/blog/categories/rails/atom.xml" rel="self"/>
+  <link href="http://jphenow.github.com/"/>
+  <updated>2012-09-24T11:43:33-05:00</updated>
+  <id>http://jphenow.github.com/</id>
+  <author>
+    <name><![CDATA[Jon Phenow]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[First Ruby/Rails impressions and a script to have you hit-the-ground-running]]></title>
+    <link href="http://jphenow.github.com/blog/2011/10/25/an-rvm-script-that-hits-the-ground-running/"/>
+    <updated>2011-10-25T23:26:00-05:00</updated>
+    <id>http://jphenow.github.com/blog/2011/10/25/an-rvm-script-that-hits-the-ground-running</id>
+    <content type="html"><![CDATA[<p>In the past couple weeks I have been stupid kinds of obsessed with working on a <a href="http://rubyonrails.org/">Ruby on Rails</a> application. The application idea came from a brother, but the awkward choice of RoR actually came from just hearing about Ruby on Rails. This seems odd - why attack a potentially complex problem with a new thing you might not fully understand. Well, that may be a good way to go about things in general, but I have this weird need to learn new things and Ruby on Rails just seems to be one of those ever exploding technologies. The farther I get into it the more I see that such an observation proves correct.</p>
+
+<p>Ruby on Rails has such a great community around it which is largely in love with the <a href="http://github.com">Github</a> awesomeness. Ruby allows quick installation of modules - even a module that will track your installations and check dependencies - most of which (if not all) is open source, generally available somewhere on github. There are great sites for <a href="http://railscasts.com/">tutorials</a> and even <a href="http://ruby.learncodethehardway.org/">free books</a> to get you up and running the fast way. Basically I'm in love with it. Even as I continually learn the <a href="http://www.ruby-lang.org/en/">Ruby</a> language further I'm blown away. They're both (Ruby and Rails) so beautiful to work with. Not only do Ruby and Rails allow your actual code to look pretty (clean, clean, concise <a href="http://en.wikipedia.org/wiki/Don%27t_repeat_yourself">DRY</a>) but, personally, I think the actual code syntax is pretty and easy to work with.</p>
+
+<p>One thing I have learned about Ruby in the past few weeks is that a lot of people of projects on different versions of Ruby or they are using modules in specific versions - specific versions they'd prefer not change without their expressed consent. <a href="http://wayneseguin.us/">Someone</a> decided to go and impress everyone with a <a href="http://beginrescueend.com/">Ruby Version Manager</a>. With this little gem (that's a pun!) developers can now (per user or system-wide) install specific versions of Ruby and have specific sets of those modules (Gems) I mentioned earlier - allowing them to do version locks and keep projects separate without needing to create complications when switching between projects (unless your that anomaly of a developer that only has one project). Actually my favorite part about rvm is that you don't actually <strong>need</strong> to switch your Gemsets (that's what those groups of modules/versions of Ruby are called) manually between projects. You can simply have a file per project (one little file) that tells that projects which Gemset to use. How cool is that?!</p>
+
+<p>Well I'll be honest, I don't have more than one Ruby project at a time, or one that requires different Gemsets, so I just like rvm for the ease of installation. This is an especially nice feature since I operate on more than one computer and more than one of those I cannot install packages via <code>sudo apt-get install ruby...</code> (or <code>pacman -S ruby</code> for you hipsters). So I went ahead and wrote a script that does that "hard" work for me. There's a little install <a href="http://beginrescueend.com/rvm/install/">tutorial</a> and shortly thereafter I wanted to at least begin a script people could use to make that installation EVEN easier (wasn't sure it was possible). Really all it does is:</p>
+
+<ul>
+<li>make some simple checks</li>
+<li>install rvm via git</li>
+<li>add some source magic to your bash_profile</li>
+<li>setup ruby 1.9.2 (latest at the moment)</li>
+<li>setup a gemset called rails31</li>
+<li>install rails 3.1.1 to that gemset</li>
+<li>away you go!</li>
+</ul>
+
+
+<p><div><script src='https://gist.github.com/1313611.js?file='></script>
+<noscript><pre><code>#!/bin/bash
+#
+# This script is for settingup a usable rvm environment for ruby development
+# Enables user to manage versions of ruby and sets of Gems in a clean manner
+#
+# Information on rvm is available at http://beginrescueend.com/
+
+git=&quot;git&quot;
+rvm=&quot;rvm&quot;
+rvmdir=&quot;$HOME/.rvm&quot;
+
+if [[ -d &quot;${rvmdir}&quot; ]]; then
+	read -p &quot;WARNING: Removing any current ~/.rvm Okay? (y/n): &quot;
+	[ &quot;$REPLY&quot; == &quot;y&quot; ] &amp;&amp; echo &quot;Continuing...&quot; || { echo &quot;Okay, exitting then...&quot;; exit 1; }
+	rm -rf ~/.rvm
+	echo &quot;&quot;
+fi
+
+command -v $git &gt;/dev/null &amp;&amp; echo &quot;$git found, good to go&quot; || { echo &quot;$git not found, required to continue. \n Please install $git&quot;; exit 1; }
+
+bash &lt; &lt;(curl -s https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer )
+
+# ATTENTION if your .bash_profile is not sourced by default on new bash session either change file or make sure its loaded
+echo &quot;Adding rvm command to your bash_profile&quot;
+type -P $rvm &amp;&gt;/dev/null &amp;&amp; echo &quot;rvm already found in PATH moving on...&quot; || { echo '[[ -s &quot;$HOME/.rvm/scripts/rvm&quot; ]] &amp;&amp; . &quot;$HOME/.rvm/scripts/rvm&quot; # Load RVM function' &gt;&gt; ~/.bashrc; echo &quot;Added to your bashrc&quot; }
+
+echo &quot;&quot;
+echo &quot;Attempting to source our new command (rvm)&quot;
+source $HOME/.rvm/scripts/rvm
+
+# Should output =&gt; rvm is a function
+# If there is an issue here its likely there was an issue loading our command
+# otherwise check that ~/.rvm was successfully created
+# May want to follow this script by hand if having issues down here
+type -P $rvm &amp;&gt;/dev/null &amp;&amp; echo &quot;New $rvm command found! Moving on...&quot; || { echo &quot;Can't access $rvm command&quot;; exit 1; }
+
+# TODO Want to check `rvm requirements` - will need to see if there is much in the way
+# of exit statuses for the command before attempting
+#rvm requirements #To ensure dependencies are met
+
+# Install a Ruby version
+echo &quot;Attempting to install Ruby 1.9.2 and our default gem...&quot;
+rvm install 1.9.2
+
+# Set as the version we're using
+echo &quot;&quot;
+echo &quot;Setting 1.9.2 as default...&quot;
+rvm use 1.9.2 --default
+
+# Create a sandbox for Gems
+echo &quot;&quot;
+echo &quot;Creating default gemset (rails31)&quot;
+rvm gemset create rails31
+
+# Add our Ruby version to the gemset
+echo &quot;&quot;
+echo &quot;Adding to a new default gemset (rails31)&quot;
+rvm 1.9.2@rails31 --default
+
+# Install two important, common gems
+echo &quot;&quot;
+echo &quot;Installing Rails 3.1.1 and Bundler to our gemset&quot;
+gem install rails -v 3.1.1
+
+# Top it off
+echo &quot;That should do it, now you can:&quot;
+echo -e &quot;\t* Download a project and run 'bundle install' and start working with it&quot;
+echo -e &quot;\t* Run 'rails new [appname]; cd [appname]; bundle install' and experiment&quot;
+echo -e &quot;\t* Checkout http://ruby.learncodethehardway.org/book/ if you need to learn Ruby first&quot;
+echo &quot;You'll likely want to either run 'source ~/.bashrc' now or exit your terminal and open it again&quot;
+</code></pre></noscript></div>
+</p>
+
+<p>Use at your own discretion, but really it shouldn't do anying harmful and if you're just looking to start experimenting, I encourage it!</p>
+]]></content>
+  </entry>
+  
+</feed>

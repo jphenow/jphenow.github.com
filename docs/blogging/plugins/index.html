@@ -1,0 +1,219 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Plugins - JPhenow</title>
+	<meta name="author" content="Jon Phenow">
+
+	
+	<meta name="description" content="There are other plugins for octopress, but here&#8217;s an overview of the ones you&#8217;ll be likely to use while blogging.
+This is mainly a &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="JPhenow" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">JPhenow</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/blog/archives">Articles</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/blog/archives">Articles</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:jphenow.github.com">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		<a class="twitter" href="http://twitter.com/jphenow" title="Twitter">Twitter</a>
+		
+		
+		<a class="github" href="https://github.com/jphenow" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:jphenow.github.com">
+	</form>
+</nav>
+
+</header>
+	
+<div id="banner" class="inner">
+	<div class="container">
+		<ul class="feed"></ul>
+	</div>
+	<small><a href="http://twitter.com/jphenow">jphenow</a> @ <a href="http://twitter.com">Twitter</a></small>
+	<div class="loading">Loading...</div>
+</div>
+<script src="/javascripts/twitter.js"></script>
+<script type="text/javascript">
+	(function($){
+		$('#banner').getTwitterFeed('jphenow', 3, false);
+	})(jQuery);
+</script>
+
+	<div id="content" class="inner"><article class="page">
+    
+    <h1 class="title">Plugins</h1>
+    
+    <div class="entry-content"><p>There are <a href="/docs/plugins">other plugins</a> for octopress, but here&#8217;s an overview of the ones you&#8217;ll be likely to use while blogging.
+This is mainly a description and demo, so be sure to follow the links beneath each section for examples and documentation.</p>
+
+<h2>Excerpts</h2>
+
+<p>When writing a post, you can add an HTML comment <code>&lt;!--more--&gt;</code> to split the post for an excerpt. Only the first section of the post, before the comment,
+will show up on the blog index.</p>
+
+<h2>HTML5 Video Tag</h2>
+
+<p>This plugin makes it easy to insert mp4 encoded HTML5 videos in a post. Octopress ships with javascripts which
+detect mp4 video support (<a href="http://modernizr.com">using Modernizr</a>) and automatically offer a flash player fallback.</p>
+
+<p><a href="/docs/plugins/video-tag/">Examples &amp; documentation &raquo;</a></p>
+
+<h2>Image Tag</h2>
+
+<p>This plugin makes it easy to insert images in a post, with optional class names, alt and title attributes.</p>
+
+<p><a href="/docs/plugins/image-tag/">Examples &amp; documentation &raquo;</a></p>
+
+<h2>Block quote</h2>
+
+<blockquote><p>Give a man a fish, he&#8217;ll have food for a day. Teach a man to fish, and he&#8217;ll always come to you with his fishing problems.</p><footer><strong>@AustinTaylor</strong> <cite><a href='https://twitter.com/austintaylor/status/73136957617750016'>twitter.com/austintaylor/status/&hellip;</a></cite></footer></blockquote>
+
+
+<p><a href="/docs/plugins/blockquote/">Examples &amp; documentation &raquo;</a></p>
+
+<h2>Pull quote</h2>
+
+<p>Octopress offers a CSS only technique for pull quotes, based on the technique by <a href="http://miekd.com/articles/pull-quotes-with-html5-and-css/">Maykel Loomans</a>.</p>
+
+<p><span class='pullquote-right' data-pullquote='pull quotes are merely visual in presentation and should not appear twice in the text.'>
+When writing longform posts, I find it helpful to include pull quotes to help readers easily identify the topics covered in each section. Some prefer to break things up with lots of headings, and while this seems to be a trend it doesn&#8217;t work so well for long form prose.
+It is important to note that pull quotes are merely visual in presentation and should not appear twice in the text. That is why it a CSS only technique for styling pull quotes is preferable. Octopress includes a handy pull quote plugin to make this easy for you.
+</span></p>
+
+<p><a href="/docs/plugins/pullquote/">Examples &amp; documentation &raquo;</a></p>
+
+<h2>Code Blocks</h2>
+
+<p>Write blocks of code directly in your posts and optionally add titles and links.</p>
+
+<figure class='code'><figcaption><span>Javascript Array Syntax (array.js)</span><a href='https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array'>MDN Documentation </a></figcaption> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">arr1</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="nx">arrayLength</span><span class="p">);</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">arr2</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="nx">element0</span><span class="p">,</span> <span class="nx">element1</span><span class="p">,</span> <span class="p">...,</span> <span class="nx">elementN</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><a href="/docs/plugins/codeblock/">Examples &amp; documentation &raquo;</a></p>
+
+<h2>Gist Tag</h2>
+
+<p>Easily embed gists in your posts or pages.</p>
+
+<pre><code>{% gist 996818 %}
+</code></pre>
+
+<p><a href="/docs/plugins/gist-tag/">Examples &amp; documentation &raquo;</a></p>
+
+<h2>Include Code</h2>
+
+<p>Import files on your filesystem into any blog post as embedded code snippets with syntax highlighting and a download link.</p>
+
+<p>File /Users/jonphenow/git/OctoBlog/source/downloads/code/javascripts/test.js could not be found</p>
+
+<p><a href="/docs/plugins/include-code/">Examples &amp; documentation &raquo;</a></p>
+
+<h2>Render Partial</h2>
+
+<p>Import files on your file system into any blog post or page. For example, to embed this page in another post I&#8217;d use the following code.</p>
+
+<pre><code>{% render_partial docs/blogging/plugins/index.markdown %}
+</code></pre>
+
+<p><a href="/docs/plugins/render-partial/">Examples &amp; documentation &raquo;</a></p>
+
+<p>Also see the <a href="/docs/plugins">Octopress Plugin index</a> for the full list of Octopress plugins.</p>
+</div>
+</article>
+
+
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2012
+
+    Jon Phenow
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'jphenow';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-11308027-3']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+</body>
+</html>

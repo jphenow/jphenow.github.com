@@ -1,0 +1,151 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Theming &amp; Customization - JPhenow</title>
+	<meta name="author" content="Jon Phenow">
+
+	
+	<meta name="description" content="For now Octopress ships with a single theme in the .themes directory. When you install the Octopress theme, HTML and Javascripts are copied into / &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="JPhenow" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">JPhenow</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/blog/archives">Articles</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/blog/archives">Articles</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:jphenow.github.com">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		<a class="twitter" href="http://twitter.com/jphenow" title="Twitter">Twitter</a>
+		
+		
+		<a class="github" href="https://github.com/jphenow" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:jphenow.github.com">
+	</form>
+</nav>
+
+</header>
+	
+<div id="banner" class="inner">
+	<div class="container">
+		<ul class="feed"></ul>
+	</div>
+	<small><a href="http://twitter.com/jphenow">jphenow</a> @ <a href="http://twitter.com">Twitter</a></small>
+	<div class="loading">Loading...</div>
+</div>
+<script src="/javascripts/twitter.js"></script>
+<script type="text/javascript">
+	(function($){
+		$('#banner').getTwitterFeed('jphenow', 3, false);
+	})(jQuery);
+</script>
+
+	<div id="content" class="inner"><article class="page">
+    
+    <h1 class="title">Theming &amp; Customization</h1>
+    
+    <div class="entry-content"><p>For now Octopress ships with a single theme in the <code>.themes</code> directory. When you install the Octopress theme, HTML and Javascripts are copied into <code>/source</code> and Sass stylesheets are copied into <code>/sass</code>.
+You are free to make any changes you like, but I&#8217;ve set up a few patterns to make it easy to customize and keep your site up to date with the latest Octopress releases.</p>
+
+<p>I&#8217;ve broken this up into two sections.</p>
+
+<ol>
+<li><a href="/docs/theme/template/">Customizing the Template</a> - <em>Learn how to change the HEAD, sidebar, header, navigation &amp; footer</em></li>
+<li><a href="/docs/theme/styles">Changing Styles</a> - <em>Learn how to change the color scheme, layout, and override styles</em></li>
+</ol>
+
+
+<p>Also see <a href="/docs/updating">Updating Your Blog &raquo;</a></p>
+</div>
+</article>
+
+
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2012
+
+    Jon Phenow
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'jphenow';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-11308027-3']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+</body>
+</html>
