@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: linux | JPhenow]]></title>
+  <link href="http://jphenow.github.com/blog/categories/linux/atom.xml" rel="self"/>
+  <link href="http://jphenow.github.com/"/>
+  <updated>2012-09-24T11:43:33-05:00</updated>
+  <id>http://jphenow.github.com/</id>
+  <author>
+    <name><![CDATA[Jon Phenow]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[A Prompt That Does the Job]]></title>
+    <link href="http://jphenow.github.com/blog/2011/08/30/a-prompt-that-does-the-job/"/>
+    <updated>2011-08-30T21:05:00-05:00</updated>
+    <id>http://jphenow.github.com/blog/2011/08/30/a-prompt-that-does-the-job</id>
+    <content type="html"><![CDATA[<p>I was delighted enough to stumble across a great explanation on boosting your development environment some time ago and I've continued to work away with forming it to my own tastes. As of late I have not been able to find this great guide I had used, but I implemented most of its changes which are lingering on my <a href="https://github.com/jphenow/home_config/blob/master/.bashrc">.bashrc</a>, I suggest taking a gander.</p>
+
+<p>Back to the real reason for the post though. One of my favorite features of my latest bashrc edits is the fact that I can see my curren't working branch in the prompt when I'm under a working git directory. This was great and all it needs is a simple tool, that seems to come with most git installs, <code>__git_ps1</code>. So with this I was able to edit my current <code>PS1</code> setting to something like:</p>
+
+<p>``` bash</p>
+
+<pre><code>PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[0;36m\]$(__git_ps1 "(%s)")\[\033[01;34m\] \w \$\[\033[00m\] '
+</code></pre>
+
+<p>```</p>
+
+<p>But of course, the important part to note is the <code>$( __git_ps1 "(%s)" )</code> which uses this simple little git tool to take care of our magic. This worked great for me for a long time, but alas times changed. I came upon a work computer that had no such tool (<code>__git_ps1</code>). I was upset to see that upon every new prompt (between <em>every</em> single command) I received a lovely error notifying me that <strong>SOMETHING DOESN'T WORK</strong>. So I spent some time attempting to remedy this.</p>
+
+<p>Luckily I was able to set aside a little time to at least hide errors when we come across one such computer that for some silly reason doesn't have this little golden tool:</p>
+
+<p>``` bash</p>
+
+<pre><code>PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[0;36m\]$(git_ps1 "(%s)")\[\033[01;34m\] \w \$\[\033[00m\] '
+
+git_ps1 ()
+{
+    __git_ps1 1&gt;/dev/null 2&gt;/dev/null # Grab exit status of an attempted run
+    err=$?
+    if [ "$err" == "0" ]; then # If you can find tool
+        ps=$( __git_ps1 "(%s)" )
+        echo -ne "$ps" # Execute me some magic
+    else # :( no cool stuff for this run
+        echo -ne "" # Don't show me errors
+    fi
+}
+</code></pre>
+
+<p>```</p>
+
+<p>So I just run it once hoping to find the exit status of attempting to run the tool then, based on that we can decide if we should use it on the prompt. Pretty simple!</p>
+
+<p>Next on the free-time-y docket:
+* Clean the PS1 setting
+* Setup some simpler vars for colors
+* Throw reusables of all of the bashrc into some methods</p>
+
+<p>Happy hacking!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Linux Home config files are up on Github!]]></title>
+    <link href="http://jphenow.github.com/blog/2011/05/04/linux-home-config-files-are-up-on-github/"/>
+    <updated>2011-05-04T00:00:00-05:00</updated>
+    <id>http://jphenow.github.com/blog/2011/05/04/linux-home-config-files-are-up-on-github</id>
+    <content type="html"><![CDATA[<p>I love this because there's about 7 or 8 different Linux boxes I end up on at any given time. Between work, class, home, parent's house, etc. I became pretty frustrated with trying to keep all my configs similar enough to keep me sane and productive. So now I just pop into my git directory pull down any updates and away I go! If I make any edits I just push back upstream and I'll get any updates on my other computers as I pull updates.</p>
+
+<p>If anyone wants to check out the repo its up <a title="Home_config" href="https://github.com/jphenow/home_config">here</a>. Don't expect too much fancy stuff. A lot of it is stuff I've taken from my brother or friends, which means it might not be the cleanest thing to look at, but it works well for me. I've also included a little shell script that might prove useful to anyone who decides they might actually want to do this type of thing with their own configuration files. 'populate_home.sh,' as I've called it, will do a few important things:</p>
+
+<ol>
+    <li>Make a backup directory inside your home directory</li>
+    <li>Any names of files within your working git directory that match files in your home directory will be moved into the backup directory</li>
+    <li>All of the files within your git working directory will be soft linked ('ln -s') to your home directory</li>
+</ol>
+
+
+<p>This script made things a lot easier for me. The backup gives you some piece of mind so you won't lose everything if something goes amiss (unlikely). The linking is the real magic, though. It makes pulling and pushing updates much easier, and makes it so you only have to run 'populate_home.sh' unless you add any new config files to your git working directory.</p>
+
+<p>So for anyone that has some pretty specific '.bashrc' specifications or a  lot of '.vimrc' customizations this is something you should see. Even if you don't switch between computers a lot, revision control of my config files has been a life saver for keeping track of any weird issues I've run into. Also having these types of things on github means that its another thing you don't have to worry about losing ever. Now whenever I end up with a new Linux box in front of me I just pull down my repo and everything is in the place I'm used to, allowing me to get back to an attempt at productivity.</p>
+
+<p>For anyone that's come across my post about a Firefox hack - we've been crossing our fingers that a Fedora upgrade and an NFS upgrade will solve our problems but I'll try to post the work we've gotten so far so that it can be at least tried out or tinkered with.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[3 minute Firefox startup time with NFS and NIS, isn't that okay? ]]></title>
+    <link href="http://jphenow.github.com/blog/2011/03/14/3-minute-firefox-startup-time-with-nfs-and-nis-isnt-that-okay/"/>
+    <updated>2011-03-14T00:00:00-05:00</updated>
+    <id>http://jphenow.github.com/blog/2011/03/14/3-minute-firefox-startup-time-with-nfs-and-nis-isnt-that-okay</id>
+    <content type="html"><![CDATA[<p>I'll be honest (cool) as a Linux Admin ( assistant but it sounds cooler if I drop the 'assistant' ) we get a lot of weird complaints and I have a theory as to why . We have people who are new to Linux (Fedora 13 for now) and think they need to revert to being new to using computers simply because its Linux, we also have the other user type where everyone who's cd'd around their home directory thinks they should tell <em>you</em>, the Linux guy, why gdm won't start, finally we have the people who actually <em>do </em>know what they're doing (1 or 2 people out of several hundred Linux users IMO ) and its scary because they try to sneak through small little holes in security so they can use their machine the way they think its correct. So basically what I'm trying to say is that sometimes we need to ( my boss and I ) ponder on what issues to actually explore and which ones to just make fun of ( we don't have much man power so we really do have to evaluate pretty well what to put at the top of the work stack, we aren't that heartless ).</p>
+
+<p>After about the 50th email we received about how Firefox takes <em>literally</em> over a minute to start up we decided to drop some of our security projects for a bit and actually take a look. It takes approximately .2 seconds for Google to tell you that NIS, NFS, and Firefox <em>really</em> don't play well together, as well as OpenOffice which is another complaint we've received. The only "solution" we've found people say could help was to upgrade all of the NFS server, which isn't really an option right now since we work at a school and upgrading in the middle of a semester is suicidal, but we also didn't want to wait until the end of the semester until people actually started yelling about the Firefox issue. We started looking more into the problem and found that it may have to do with the heavy sqlite use in the profile which would be transfered over NFS since its in the home directory's profile. We tried ls-ing the profile early, to load some of the info into memory cache, cp-ing and deleting out of /tmp, finally we decided there was no real "quick" way of doing this.</p>
+
+<p>We landed on something we've deemed to be a hack... because its really not that clean of a solution by any standard. First I wrote a script to patch the current user's firefox profile on boot that will edit the profiles.ini to direct the profile directory to a local space on the current lab computer ( they can switch lab computers all they want ), then a "lock" is touched when we start rsync-ing the profile to a local directory which is a sticky directory with permissions preserved, once the rsync is complete the lock is removed and a following script utilizes inotify to watch the local directory for changes and will rsync accordingly to the home directory as the Firefox session is running. Finally on logout we plan to have a script that will clean the directory of all Firefox user profiles, in case someone  wasn't logged out correctly so we don't have lingering profiles.</p>
+
+<p>Okay we don't actually know yet if this clears up our issue, but its the only way we can decide that will actually help the process at all of starting Firefox. I'll report back if this helps the situation much and try to host the code somewhere publicly available ( if I'm given permission ) so that anyone in a similar position can use our fancy ( ha ) method for speeding up the Firefox start over NFS.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Why you should have a separate home partition]]></title>
+    <link href="http://jphenow.github.com/blog/2010/12/20/why-you-should-have-a-separate-home-partition/"/>
+    <updated>2010-12-20T00:00:00-06:00</updated>
+    <id>http://jphenow.github.com/blog/2010/12/20/why-you-should-have-a-separate-home-partition</id>
+    <content type="html"><![CDATA[<p>I started tinkering around with Ubuntu when I was about 15 or 16 because, my brother came back from school and talked about how cool it was up at college. I started installing, breaking, and fixing. Eventually he started telling me things I should do, but I hardly ever understood why I should do them, I just did them because I was told I should. You should always understand why someone is telling you to do something, because you'll more than likely learn something that way.</p>
+
+<p>To explain why a separate home partition is a great idea I'll just explain a few the experiences I've had. Every once in a while I go a little too crazy and install way too many things on my Linux box. Sadly on Linux after a while you've done so much with configuration and dependency installation that your OS is pretty screwy. A good way to clean up crap like that is to do a fresh install of Linux, but if you have /home on the same partition as root then you're going to lose personal settings, files, etc., unless you spend a lot of time backing it all up so you can put it back in its spot. With a separate partition you can wipe the root file system, reinstall Linux and designate the home partition to mount at /home - quick and easy. From there just install all your favorite packages or create a script to do that each time you do a fresh install.</p>
+
+<p>A more recent extreme case is what brought this post about. I returned from a visit to Iowa and found my Linux partition unbootable. I didn't quite panic, but I was having trouble accessing the drive at all. I finally decided to pop in a live GParted CD and wipe my root filesystem then reinstall Ubuntu 10.10. Within an hour I was back to where I left the computer before this weekend. Up to date, all my programs running, Chrome even opened up the windows I hadn't closed before the weekend.</p>
+
+<p>Save yourself the pain of a dumb accident and put in the extra work to separate your main linux filesystem partition and your home directory.</p>
+]]></content>
+  </entry>
+  
+</feed>

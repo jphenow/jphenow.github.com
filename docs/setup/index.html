@@ -1,0 +1,214 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Octopress Setup - JPhenow</title>
+	<meta name="author" content="Jon Phenow">
+
+	
+	<meta name="description" content="Create a new repository for your website then
+open up a terminal and follow along. If you plan to host your site on Github Pages for a user or &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="JPhenow" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">JPhenow</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/blog/archives">Articles</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/blog/archives">Articles</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:jphenow.github.com">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		<a class="twitter" href="http://twitter.com/jphenow" title="Twitter">Twitter</a>
+		
+		
+		<a class="github" href="https://github.com/jphenow" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:jphenow.github.com">
+	</form>
+</nav>
+
+</header>
+	
+<div id="banner" class="inner">
+	<div class="container">
+		<ul class="feed"></ul>
+	</div>
+	<small><a href="http://twitter.com/jphenow">jphenow</a> @ <a href="http://twitter.com">Twitter</a></small>
+	<div class="loading">Loading...</div>
+</div>
+<script src="/javascripts/twitter.js"></script>
+<script type="text/javascript">
+	(function($){
+		$('#banner').getTwitterFeed('jphenow', 3, false);
+	})(jQuery);
+</script>
+
+	<div id="content" class="inner"><article class="page">
+    
+    <h1 class="title">Octopress Setup</h1>
+    
+    <div class="entry-content"><p><a href="https://github.com/repositories/new">Create a new repository</a> for your website then
+open up a terminal and follow along. If you plan to host your site on <a href="http://pages.github.com">Github Pages</a> for a user or organization, make sure the
+repository is named <code>your_username.github.com</code> or <code>your_organization.github.com</code>.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>mkdir my_octopress_site
+</span><span class='line'><span class="nb">cd </span>my_octopress_site
+</span><span class='line'>git init
+</span><span class='line'>git remote add octopress git://github.com/imathis/octopress.git
+</span><span class='line'>git pull octopress master
+</span><span class='line'>git remote add origin your/repository/url
+</span><span class='line'>git push origin master
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Next, <strong>if you&#8217;re using <a href="http://pages.github.com">Github Pages</a> to host a site for your user or organization</strong>, create a source branch and push to origin source.
+If you&#8217;re using Github project pages, or hosting the site in a different way, skip this step.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>git checkout -b <span class="nb">source</span>
+</span><span class='line'>git push origin <span class="nb">source</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The <code>source</code> branch is created to have somewhere to store the source
+for your site. GitHub user/organization pages expects the generated site to be pushed to the
+<code>master</code> branch of your GitHub repository so that branch needs to stay
+clean. In <a href="/docs/deploying/">Deploying Octopress</a> we&#8217;ll setup the <code>master</code> branch for deployment.</p>
+
+<p>Next, setup an <a href="http://beginrescueend.com/">RVM</a> and install dependencies.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>rvm rvmrc trust
+</span><span class='line'>rvm reload
+</span><span class='line'>gem install bundler
+</span><span class='line'>gem install rake
+</span><span class='line'>bundle install
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Install the default Octopress theme,</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>rake install
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>What to Commit?</h3>
+
+<p>With <code>rake install</code> you&#8217;ve setup the default Octopress theme in the <code>source</code> and <code>sass</code> directories. Add them to your git repository, commit and push. <em>Remember if you&#8217;re hosting with Github user/organization pages, you&#8217;ll want to commit these to the <code>source</code> branch.</em></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>git add .
+</span><span class='line'>git commit -m <span class="s1">&#39;Installed Octopress theme&#39;</span>
+</span><span class='line'>git push
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Whenever you write a new post, or make changes to your blog, be sure to commit and push those changes.</p>
+
+<p>See also <a href="/docs/configuring">Configuring Octopress</a>, <a href="/docs/blogging/">Blogging with Octopress</a> and <a href="/docs/deploying/">Deploying Octopress</a></p>
+</div>
+</article>
+
+
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2012
+
+    Jon Phenow
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'jphenow';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-11308027-3']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,189 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Octopress Documentation - JPhenow</title>
+	<meta name="author" content="Jon Phenow">
+
+	
+	<meta name="description" content="Octopress is a framework designed for Jekyll, the static blogging engine powering Github Pages. Have a look through
+the documentation and if you have &hellip;">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="JPhenow" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
+
+<body>
+	<header id="header" class="inner"><h1><a href="/">JPhenow</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/blog/archives">Articles</a></li>
+</ul>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/blog/archives">Articles</a></li>
+</ul>
+</div>
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:jphenow.github.com">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		<a class="twitter" href="http://twitter.com/jphenow" title="Twitter">Twitter</a>
+		
+		
+		<a class="github" href="https://github.com/jphenow" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:jphenow.github.com">
+	</form>
+</nav>
+
+</header>
+	
+<div id="banner" class="inner">
+	<div class="container">
+		<ul class="feed"></ul>
+	</div>
+	<small><a href="http://twitter.com/jphenow">jphenow</a> @ <a href="http://twitter.com">Twitter</a></small>
+	<div class="loading">Loading...</div>
+</div>
+<script src="/javascripts/twitter.js"></script>
+<script type="text/javascript">
+	(function($){
+		$('#banner').getTwitterFeed('jphenow', 3, false);
+	})(jQuery);
+</script>
+
+	<div id="content" class="inner"><article class="page">
+    
+    <h1 class="title">Octopress Documentation</h1>
+    
+    <div class="entry-content"><p>Octopress is a framework designed for Jekyll, the static blogging engine powering Github Pages. Have a look through
+the documentation and if you have trouble, <a href="http://convore.com/octopress/support">I&#8217;ll be happy to help</a>. If you find errors
+<a href="https://github.com/imathis/octopress/issues">post an issue</a> or fork and send a pull request on the <a href="https://github.com/imathis/octopress/tree/site">site branch</a>.</p>
+
+<p><strong>Note:</strong> If you already have a blog, check out <a href="https://github.com/mojombo/jekyll/wiki/blog-migrations">Jekyll&#8217;s Migration page</a> to help you get your current blog set up for Octopress blogging.</p>
+
+<h2>Getting Started</h2>
+
+<p>This section will help you get set up, and explain how to configure Octopress for your site.</p>
+
+<ul>
+<li><a href="/docs/setup">Initial setup</a> - <em>get source and install dependencies</em></li>
+<li><a href="/docs/configuring">Basic Configuration</a> - <em>enable third party services and personalize your blog</em></li>
+</ul>
+
+
+<h2>Using Octopress</h2>
+
+<p>Your blog should be awesome. This should help.</p>
+
+<ul>
+<li><a href="/docs/blogging">Blogging Basics</a> - <em>how to create blog posts and pages</em></li>
+<li><a href="/docs/deploying">Deploying Octopress</a> - <em>simple deploy instructions for Rsync and Github pages</em></li>
+<li><a href="/docs/blogging/code">Sharing Code Snippets</a> - <em>share code snippets with ease</em></li>
+<li><a href="/docs/blogging/plugins">Blogging With Plugins</a> - <em>overview of plugins for blogging</em></li>
+<li><a href="/docs/theme">Theming &amp; Customization</a> - <em>guide to making changes to your Octopress theme</em></li>
+<li><a href="/docs/updating">Updating Octopress</a> - <em>a guide to help you stay current with Octopress</em></li>
+</ul>
+
+
+<h2>Octopress Plugins - Usage &amp; Examples</h2>
+
+<p>Octopress ships with the following plugins. Many have been written specially for Octopress, but some have been selected from the Jekyll community with various changes and improvements.</p>
+
+<ul>
+<li><a href="/docs/plugins/video-tag/">HTML5 Video Tag</a> - <em>easily post images with class names and titles</em></li>
+<li><a href="/docs/plugins/backtick-codeblock/">Backtick Code Block</a> - <em>for simple lightweight code sharing</em></li>
+<li><a href="/docs/plugins/codeblock/">Code Block</a> - <em>for sharing code with titles and links</em></li>
+<li><a href="/docs/plugins/include-code/">Include Code</a> - <em>embed code from your filesystem with a download link</em></li>
+<li><a href="/docs/plugins/gist-tag/">Gist Tag</a> - <em>automatically downloads and embeds Github gists</em></li>
+<li><a href="/docs/plugins/image-tag/">Image Tag</a> - <em>easily post images with class names and titles</em></li>
+<li><a href="/docs/plugins/render-partial/">Render Partial</a> - <em>insert any file into another post or page</em></li>
+<li><a href="/docs/plugins/blockquote/">Block Quote</a> - <em>generate beautiful, semantic block quotes</em></li>
+<li><a href="/docs/plugins/pullquote/">Pull Quote</a> - <em>generate CSS only pull quotes &mdash; no duplicate data, no javascript</em></li>
+<li><a href="/docs/plugins/category-generator/">Category Generator</a> - <em>generates archive pages for each blog category</em></li>
+<li><a href="/docs/plugins/include-array/">Include Array</a> - <em>includes an array of partials specified in the _config.yml</em></li>
+</ul>
+
+
+<p>The following filters are used by Octopress, and are documented as necessary in their source.</p>
+
+<ul>
+<li>Octopress filters - <em>liquid filters built just for Octopress</em></li>
+<li>Sitemap Generator - <em>generates an SEO friendly sitemap.xml</em></li>
+<li>Compass Compiler - <em>forces Jekyll to compile Compass on each load</em></li>
+<li>Haml Converter - <em>allows .haml pages to be processed by Jekyll</em></li>
+<li>Pygments Code - <em>converts code snippets to highlighted code and caches to speed up Jekyll processing</em></li>
+<li>Titlecase - <em>required by several plugins to automatically generate proper title captalization</em></li>
+</ul>
+
+
+<p><a href="https://github.com/imathis/octopress/tree/master/plugins">Octopress plugins source</a></p>
+</div>
+</article>
+
+
+</div>
+	<footer id="footer" class="inner">Copyright &copy; 2012
+
+    Jon Phenow
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+
+
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-11308027-3']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+
+
+</body>
+</html>
