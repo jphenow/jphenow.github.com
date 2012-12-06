@@ -206,6 +206,7 @@ end
 # Deploying  #
 ##############
 
+require 'fileutils'
 desc "Default deploy task"
 task :deploy do
   # Check if preview posts exist, which should not be published
@@ -216,6 +217,7 @@ task :deploy do
   end
 
   Rake::Task[:copydot].invoke(source_dir, public_dir)
+  FileUtils.cp("source/CNAME", "public/CNAME")
   Rake::Task["#{deploy_default}"].execute
 end
 
