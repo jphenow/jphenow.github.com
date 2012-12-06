@@ -1,0 +1,304 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>3 minute Firefox startup time with NFS and NIS, isn't that okay?  - JPhenow</title>
+  <meta name="author" content="Jon Phenow">
+
+  
+  <meta name="description" content="I&#8217;ll be honest (cool) as a Linux Admin ( assistant but it sounds cooler if I drop the &#8216;assistant&#8217; ) we get a lot of weird &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://jphenow.com/blog/2011/03/14/3-minute-firefox-startup-time-with-nfs-and-nis-isnt-that-okay/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="JPhenow" type="application/atom+xml">
+  
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11308027-3']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner">
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:jphenow.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main">
+	<li><a href="/blog/archives">Articles</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">3 Minute Firefox Startup Time With NFS and NIS, Isn't That Okay?</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-03-14T00:00:00-05:00" pubdate data-updated="true">Mar 14<span>th</span>, 2011</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>I&#8217;ll be honest (cool) as a Linux Admin ( assistant but it sounds cooler if I drop the &#8216;assistant&#8217; ) we get a lot of weird complaints and I have a theory as to why . We have people who are new to Linux (Fedora 13 for now) and think they need to revert to being new to using computers simply because its Linux, we also have the other user type where everyone who&#8217;s cd&#8217;d around their home directory thinks they should tell <em>you</em>, the Linux guy, why gdm won&#8217;t start, finally we have the people who actually <em>do </em>know what they&#8217;re doing (1 or 2 people out of several hundred Linux users IMO ) and its scary because they try to sneak through small little holes in security so they can use their machine the way they think its correct. So basically what I&#8217;m trying to say is that sometimes we need to ( my boss and I ) ponder on what issues to actually explore and which ones to just make fun of ( we don&#8217;t have much man power so we really do have to evaluate pretty well what to put at the top of the work stack, we aren&#8217;t that heartless ).</p>
+
+<p>After about the 50th email we received about how Firefox takes <em>literally</em> over a minute to start up we decided to drop some of our security projects for a bit and actually take a look. It takes approximately .2 seconds for Google to tell you that NIS, NFS, and Firefox <em>really</em> don&#8217;t play well together, as well as OpenOffice which is another complaint we&#8217;ve received. The only &#8220;solution&#8221; we&#8217;ve found people say could help was to upgrade all of the NFS server, which isn&#8217;t really an option right now since we work at a school and upgrading in the middle of a semester is suicidal, but we also didn&#8217;t want to wait until the end of the semester until people actually started yelling about the Firefox issue. We started looking more into the problem and found that it may have to do with the heavy sqlite use in the profile which would be transfered over NFS since its in the home directory&#8217;s profile. We tried ls-ing the profile early, to load some of the info into memory cache, cp-ing and deleting out of /tmp, finally we decided there was no real &#8220;quick&#8221; way of doing this.</p>
+
+<p>We landed on something we&#8217;ve deemed to be a hack&#8230; because its really not that clean of a solution by any standard. First I wrote a script to patch the current user&#8217;s firefox profile on boot that will edit the profiles.ini to direct the profile directory to a local space on the current lab computer ( they can switch lab computers all they want ), then a &#8220;lock&#8221; is touched when we start rsync-ing the profile to a local directory which is a sticky directory with permissions preserved, once the rsync is complete the lock is removed and a following script utilizes inotify to watch the local directory for changes and will rsync accordingly to the home directory as the Firefox session is running. Finally on logout we plan to have a script that will clean the directory of all Firefox user profiles, in case someone  wasn&#8217;t logged out correctly so we don&#8217;t have lingering profiles.</p>
+
+<p>Okay we don&#8217;t actually know yet if this clears up our issue, but its the only way we can decide that will actually help the process at all of starting Firefox. I&#8217;ll report back if this helps the situation much and try to host the code somewhere publicly available ( if I&#8217;m given permission ) so that anyone in a similar position can use our fancy ( ha ) method for speeding up the Firefox start over NFS.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Jon Phenow</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-03-14T00:00:00-05:00" pubdate data-updated="true">Mar 14<span>th</span>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/development/'>development</a>, <a class='category' href='/blog/categories/linux/'>linux</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://jphenow.com/blog/2011/03/14/3-minute-firefox-startup-time-with-nfs-and-nis-isnt-that-okay/" data-via="jphenow" data-counturl="http://jphenow.com/blog/2011/03/14/3-minute-firefox-startup-time-with-nfs-and-nis-isnt-that-okay/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2010/12/20/why-you-should-have-a-separate-home-partition/" title="Previous Post: Why you should have a separate home partition">&laquo; Why you should have a separate home partition</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/03/14/a-recent-venture/" title="Next Post: A recent venture.">A recent venture. &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/10/12/an-introduction-to-mixing-refinery-and-spree/">How I Started Using Spree and RefineryCMS Together</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/10/25/an-rvm-script-that-hits-the-ground-running/">First Ruby/Rails impressions and a script to have you hit-the-ground-running</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/09/12/lessons-from-a-job-opportunity/">Developer Interview Lessons</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/30/a-prompt-that-does-the-job/">A Prompt That Does the Job</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/25/fully-switched-to-octopress/">Fully Switched to Octopress</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/jphenow">@jphenow</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'jphenow',
+            count: 2,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("jphenow", 3, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/jphenow" class="twitter-follow-button" data-show-count="true">Follow @jphenow</a>
+  
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo">Copyright &copy; 2012
+
+    Jon Phenow
+
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'jphenow';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://jphenow.com/blog/2011/03/14/3-minute-firefox-startup-time-with-nfs-and-nis-isnt-that-okay/';
+        var disqus_url = 'http://jphenow.com/blog/2011/03/14/3-minute-firefox-startup-time-with-nfs-and-nis-isnt-that-okay/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: web | JPhenow]]></title>
+  <link href="http://jphenow.com/blog/categories/web/atom.xml" rel="self"/>
+  <link href="http://jphenow.com/"/>
+  <updated>2012-12-06T14:02:34-06:00</updated>
+  <id>http://jphenow.com/</id>
+  <author>
+    <name><![CDATA[Jon Phenow]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[How I Started Using Spree and RefineryCMS Together]]></title>
+    <link href="http://jphenow.com/blog/2012/10/12/an-introduction-to-mixing-refinery-and-spree/"/>
+    <updated>2012-10-12T13:16:00-05:00</updated>
+    <id>http://jphenow.com/blog/2012/10/12/an-introduction-to-mixing-refinery-and-spree</id>
+    <content type="html"><![CDATA[<p><a href="http://refinerycms.com/">RefineryCMS</a>
+is a great boilerplate for creating a CMS in Rails.
+It basically gives you all the structure you need to build a custom CMS,
+with lots of features built in and extensions to add.
+<a href="http://spreecommerce.com/">Spree</a> offers similar
+benefits but directed at being a shopping cart web application. I wanted to use
+both of these tools in tandem.</p>
+
+<p>I tried a number of things in an attempt to mix the two together in one unifying
+application. Finally I stumbled across
+<a href="https://github.com/adrianmacneil/spree-refinery-authentication">spree-refinery-authentication</a>.
+This gem not only explains how to put the two things under one application, but
+gives you the ability to have both authentication systems work together.</p>
+
+<p>To get this basic merge, I literally just followed the steps on spree-refiner-authentication
+README and I was off. I still have some work to do to make the two cooperate seemlessly
+for an end-user, but more posts to come as I'm able to work through this.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[First Ruby/Rails impressions and a script to have you hit-the-ground-running]]></title>
+    <link href="http://jphenow.com/blog/2011/10/25/an-rvm-script-that-hits-the-ground-running/"/>
+    <updated>2011-10-25T23:26:00-05:00</updated>
+    <id>http://jphenow.com/blog/2011/10/25/an-rvm-script-that-hits-the-ground-running</id>
+    <content type="html"><![CDATA[<p>In the past couple weeks I have been stupid kinds of obsessed with working on a <a href="http://rubyonrails.org/">Ruby on Rails</a> application. The application idea came from a brother, but the awkward choice of RoR actually came from just hearing about Ruby on Rails. This seems odd - why attack a potentially complex problem with a new thing you might not fully understand. Well, that may be a good way to go about things in general, but I have this weird need to learn new things and Ruby on Rails just seems to be one of those ever exploding technologies. The farther I get into it the more I see that such an observation proves correct.</p>
+
+<p>Ruby on Rails has such a great community around it which is largely in love with the <a href="http://github.com">Github</a> awesomeness. Ruby allows quick installation of modules - even a module that will track your installations and check dependencies - most of which (if not all) is open source, generally available somewhere on github. There are great sites for <a href="http://railscasts.com/">tutorials</a> and even <a href="http://ruby.learncodethehardway.org/">free books</a> to get you up and running the fast way. Basically I'm in love with it. Even as I continually learn the <a href="http://www.ruby-lang.org/en/">Ruby</a> language further I'm blown away. They're both (Ruby and Rails) so beautiful to work with. Not only do Ruby and Rails allow your actual code to look pretty (clean, clean, concise <a href="http://en.wikipedia.org/wiki/Don%27t_repeat_yourself">DRY</a>) but, personally, I think the actual code syntax is pretty and easy to work with.</p>
+
+<p>One thing I have learned about Ruby in the past few weeks is that a lot of people of projects on different versions of Ruby or they are using modules in specific versions - specific versions they'd prefer not change without their expressed consent. <a href="http://wayneseguin.us/">Someone</a> decided to go and impress everyone with a <a href="http://beginrescueend.com/">Ruby Version Manager</a>. With this little gem (that's a pun!) developers can now (per user or system-wide) install specific versions of Ruby and have specific sets of those modules (Gems) I mentioned earlier - allowing them to do version locks and keep projects separate without needing to create complications when switching between projects (unless your that anomaly of a developer that only has one project). Actually my favorite part about rvm is that you don't actually <strong>need</strong> to switch your Gemsets (that's what those groups of modules/versions of Ruby are called) manually between projects. You can simply have a file per project (one little file) that tells that projects which Gemset to use. How cool is that?!</p>
+
+<p>Well I'll be honest, I don't have more than one Ruby project at a time, or one that requires different Gemsets, so I just like rvm for the ease of installation. This is an especially nice feature since I operate on more than one computer and more than one of those I cannot install packages via <code>sudo apt-get install ruby...</code> (or <code>pacman -S ruby</code> for you hipsters). So I went ahead and wrote a script that does that "hard" work for me. There's a little install <a href="http://beginrescueend.com/rvm/install/">tutorial</a> and shortly thereafter I wanted to at least begin a script people could use to make that installation EVEN easier (wasn't sure it was possible). Really all it does is:</p>
+
+<ul>
+<li>make some simple checks</li>
+<li>install rvm via git</li>
+<li>add some source magic to your bash_profile</li>
+<li>setup ruby 1.9.2 (latest at the moment)</li>
+<li>setup a gemset called rails31</li>
+<li>install rails 3.1.1 to that gemset</li>
+<li>away you go!</li>
+</ul>
+
+
+<p><div><script src='https://gist.github.com/1313611.js?file='></script>
+<noscript><pre><code>#!/bin/bash
+#
+# This script is for settingup a usable rvm environment for ruby development
+# Enables user to manage versions of ruby and sets of Gems in a clean manner
+#
+# Information on rvm is available at http://beginrescueend.com/
+
+git=&quot;git&quot;
+rvm=&quot;rvm&quot;
+rvmdir=&quot;$HOME/.rvm&quot;
+
+if [[ -d &quot;${rvmdir}&quot; ]]; then
+	read -p &quot;WARNING: Removing any current ~/.rvm Okay? (y/n): &quot;
+	[ &quot;$REPLY&quot; == &quot;y&quot; ] &amp;&amp; echo &quot;Continuing...&quot; || { echo &quot;Okay, exitting then...&quot;; exit 1; }
+	rm -rf ~/.rvm
+	echo &quot;&quot;
+fi
+
+command -v $git &gt;/dev/null &amp;&amp; echo &quot;$git found, good to go&quot; || { echo &quot;$git not found, required to continue. \n Please install $git&quot;; exit 1; }
+
+bash &lt; &lt;(curl -s https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer )
+
+# ATTENTION if your .bash_profile is not sourced by default on new bash session either change file or make sure its loaded
+echo &quot;Adding rvm command to your bash_profile&quot;
+type -P $rvm &amp;&gt;/dev/null &amp;&amp; echo &quot;rvm already found in PATH moving on...&quot; || { echo '[[ -s &quot;$HOME/.rvm/scripts/rvm&quot; ]] &amp;&amp; . &quot;$HOME/.rvm/scripts/rvm&quot; # Load RVM function' &gt;&gt; ~/.bashrc; echo &quot;Added to your bashrc&quot; }
+
+echo &quot;&quot;
+echo &quot;Attempting to source our new command (rvm)&quot;
+source $HOME/.rvm/scripts/rvm
+
+# Should output =&gt; rvm is a function
+# If there is an issue here its likely there was an issue loading our command
+# otherwise check that ~/.rvm was successfully created
+# May want to follow this script by hand if having issues down here
+type -P $rvm &amp;&gt;/dev/null &amp;&amp; echo &quot;New $rvm command found! Moving on...&quot; || { echo &quot;Can't access $rvm command&quot;; exit 1; }
+
+# TODO Want to check `rvm requirements` - will need to see if there is much in the way
+# of exit statuses for the command before attempting
+#rvm requirements #To ensure dependencies are met
+
+# Install a Ruby version
+echo &quot;Attempting to install Ruby 1.9.2 and our default gem...&quot;
+rvm install 1.9.2
+
+# Set as the version we're using
+echo &quot;&quot;
+echo &quot;Setting 1.9.2 as default...&quot;
+rvm use 1.9.2 --default
+
+# Create a sandbox for Gems
+echo &quot;&quot;
+echo &quot;Creating default gemset (rails31)&quot;
+rvm gemset create rails31
+
+# Add our Ruby version to the gemset
+echo &quot;&quot;
+echo &quot;Adding to a new default gemset (rails31)&quot;
+rvm 1.9.2@rails31 --default
+
+# Install two important, common gems
+echo &quot;&quot;
+echo &quot;Installing Rails 3.1.1 and Bundler to our gemset&quot;
+gem install rails -v 3.1.1
+
+# Top it off
+echo &quot;That should do it, now you can:&quot;
+echo -e &quot;\t* Download a project and run 'bundle install' and start working with it&quot;
+echo -e &quot;\t* Run 'rails new [appname]; cd [appname]; bundle install' and experiment&quot;
+echo -e &quot;\t* Checkout http://ruby.learncodethehardway.org/book/ if you need to learn Ruby first&quot;
+echo &quot;You'll likely want to either run 'source ~/.bashrc' now or exit your terminal and open it again&quot;
+</code></pre></noscript></div>
+</p>
+
+<p>Use at your own discretion, but really it shouldn't do anying harmful and if you're just looking to start experimenting, I encourage it!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Developer Interview Lessons]]></title>
+    <link href="http://jphenow.com/blog/2011/09/12/lessons-from-a-job-opportunity/"/>
+    <updated>2011-09-12T11:18:00-05:00</updated>
+    <id>http://jphenow.com/blog/2011/09/12/lessons-from-a-job-opportunity</id>
+    <content type="html"><![CDATA[<p>Finding jobs in any economic climate is stressful, but that doesn't mean you can't give it your all and go after whatever looks interesting. Sure, you'll likely get turned down a few times, but you might end up in an extremely fulfilling and interesting position. I've recently been approaching such a situation. Let's start with some back story though.</p>
+
+<p>To those of you who might know me I'm a Senior Computer Science undergraduate at Saint John's University (Collegeville, not New York). However what most don't know is that I only need a two credit class next semester to graduate, which means I may not need to be a full-time student next semester. That's not to say I wouldn't love an easy last semester outside of the real world, but if I can find a job I find it hard to pay the gross amount of money it costs to go here full-time. Anyways, I'm the type of person who really has a tough time doing things I don't love. I love some very nerdy things, but some things I can't put up with. This is why I've started looking now, so I can try to feel out my options, or somehow have options at all.</p>
+
+<p>Well in the past few weeks I actually have had such opportunities and I figured I'd share with anyone looking to be in developer position my take-aways. Boy did I have a thing or two to learn about interviewing for developer positions. One thing to take note of is that depending on the actual industry the interviewing company is in. The Civil Engineering firm and Financial firm I've done internships for had surprisingly business-like interviews:</p>
+
+<ul>
+<li>Can you talk?</li>
+<li>Are you personable?</li>
+<li>Can you at least present yourself as if you know what you're talking about?</li>
+</ul>
+
+
+<p>Yea, it can be that simple. My theory for why this is is two-fold. First, a lot of smaller, non-computer-technical companies simply don't know how to hire for such a position. They don't know to get a code sample from you, how to view that sample, there are so many things they simply can't and won't do for that process. Second, if this is a huge corporate company they couldn't give a damn what you already know - they just want to know that you think logically enough to work things out so they can train you to do things their way. These are the places I can't handle, personally, because (in the little experience I have with them) I find extreme inconsistency and just poor practice throughout most projects I've come across. I end up wanting to clean up their mess and yet, obviously, you can't because you'll break something and cause havoc.</p>
+
+<p>Let's switch to the other extreme. I interviewed for a Silicon Valley tech company recently. Not a contracting developer house, a place that made their name on their application. This was my first real developer interview, which was actually probably my biggest mistake. I spoke over the phone with their HR rep a few times, then I was presented with a code challenge which, with no time contraints, I was to develop a little program that would basically attempt to spell check some common errors at O(n). Things to note up until this point:</p>
+
+<ul>
+<li>If they give no constraint on a project, do it fast</li>
+<li>Document your code like never before</li>
+<li>No repetition, use methods</li>
+<li>Structure as well as you can</li>
+<li>Use a language you really understand
+
+<ul>
+<li>Not only syntax but core benefits</li>
+<li>Don't take 2 days to pick a language</li>
+</ul>
+</li>
+</ul>
+
+
+<p>To my surprise, I did well on this first part. After this I was told I would have a Skype call with a developer on their team, here comes the real stress. The guy called 10 to 15 minutes late from our original appointment and there was obviously some Thursday afternoon festivities taking place in the background. We did short introductions then opened up a collaborative, browser-based text editor and he said "pick a language and write me a stack." Now I was told this would be a technical interview but I felt like I got hit by a car. Obviously any CS student should understand how to do this, but I was not expecting this for some reason. So I quickly wrote the most simplistic stack I've ever seen in Java. We walked through different scenarios and as we talked I reworked the code. Finally he asked me how, if we have a stack of integers, I would most-quickly get the minimum. I froze - if you can't tell by now, I'm not someone who can code when I know someone is watching. We eventually talked about the answer (duh, keep a second array for tracking minimums), I asked some questions about his work and we departed. I got an email the next day, from the HR rep, with a polite "See ya next time." This was brutal, but I feel lucky to have learned some things from them:</p>
+
+<ul>
+<li>Don't let the interviewer's attitude rattle you
+
+<ul>
+<li>It sucks, but you have to suck it up and deal</li>
+</ul>
+</li>
+<li>Relax
+
+<ul>
+<li>Learn to code with others watching</li>
+</ul>
+</li>
+<li>Review, in your head, basic concepts before such an interview
+
+<ul>
+<li>Companies seem to like to remind you that fundamentals are important</li>
+</ul>
+</li>
+<li>Admit things you don't know</li>
+<li>Ask questions, be interested, but don't be desperate</li>
+</ul>
+
+
+<p>Finally, we come to most recent attempt. I received an unexpected call from an online application for a more local developer contractor. I spoke with HR about setting up a time to come and interview with their hunter, we set up the for the earliest date I could get in. I entered the eerily casual offices in my shirt and tie to meet the people I feel at home with, nerds. I spoke with their extremely fun-to-talk-to hunter for awhile about my progression to becoming a developer - experience with teams, size of projects, etc.. I asked some questions about their business, what a day looks like for a dev until we had some time to tour the office. These tech company offices are very fun - stalked with food, caffeine, very open and friendly. We shook hands and he told me they'd like to give me a code challenge. The next day I received a challenge involving setting up a web application that would connect to a SOAP server. They listed details such as what should be validated, rules for end users, etc.. Pretty straightforward - I even got to pick my favorite framework flavor! So I sketched a basic outline of the app and away we go. I had a week to present a clean project so sleep was mostly out the window with school/student job starting. I pounded something clean enough out and turned in a day early, because there was no way I'd have any more time to work on it. I loved this project - this is the work I live for, but obviously I did some things wrong so let's have a look:</p>
+
+<ul>
+<li>Be personable - even its a dev company people need to be able to communicate well</li>
+<li>Don't forget your original knowledge around projects of this nature
+
+<ul>
+<li>Example: Web application means validate the heck out of text fields</li>
+<li>Its tempting to blindly follow the specs and forget how to handle something like a web app</li>
+</ul>
+</li>
+<li>Check that your server is able to perform all you require
+
+<ul>
+<li>I realized late on that my PHP5 install was not compiled with SOAP</li>
+</ul>
+</li>
+<li>Do things that make sense
+
+<ul>
+<li>Example: if there's an HTML table being filled, sort it</li>
+</ul>
+</li>
+<li>Re-read the specs before turning in
+
+<ul>
+<li>You may think you remember it all after reading it 1000 times, but you don't</li>
+</ul>
+</li>
+</ul>
+
+
+<p>So no, I didn't get this latest job, but I'll admit, I'm no professional PHP developer. Their reviewer pointed out some gaping holes that I'll admit I could've taken care of. Really part of the problem is my lack of experience which is why I don't see not getting a job as a failure. I learned a ton from the reviewer's notes on my application and I can use that to make myself a better developer. That's one big thing people need to take from such interviews - learn from them, don't get upset. Take what you can from an interview, get feedback, evolve yourself. Also note that a lot of developer houses prefer hiring people they know, people they see at conferences and open houses - make yourself a familiar face in the community of developers.</p>
+
+<p>I hope this was as helful for you to read as it was for me to write!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Fully Switched to Octopress]]></title>
+    <link href="http://jphenow.com/blog/2011/08/25/fully-switched-to-octopress/"/>
+    <updated>2011-08-25T12:18:00-05:00</updated>
+    <id>http://jphenow.com/blog/2011/08/25/fully-switched-to-octopress</id>
+    <content type="html"><![CDATA[<p>I did it! I've made the switch! Loving it so far. This framework is so much easier for someone who is used to ssh, git, and vim. I feel like I can dig into the guts more easily. Not that you couldn't dig into the Wordpress guts but it usually made me feeling like I was trying to work on Audi when all of my mechanic experience was with Ford. Wordpress, coming from an understanding of MVC patterns, feels poorly built (hacked together really).</p>
+
+<p>Quickly, now, lets talk conversion. I switched from Wordpress and of course, being a CS major, I can't manually copy things to the new blog. That's silly to me. So what I did was make a quick little Ruby script!</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (wp_conv.rb)</span> <a href='/downloads/code/wp_conv.rb'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="nb">require</span> <span class="s2">&quot;mysql&quot;</span>
+</span><span class='line'><span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;./source/_posts/ruby/&quot;</span>
+</span><span class='line'><span class="n">my</span> <span class="o">=</span> <span class="no">Mysql</span><span class="o">::</span><span class="kp">new</span><span class="p">(</span><span class="s2">&quot;SERVER&quot;</span><span class="p">,</span> <span class="s2">&quot;USER&quot;</span><span class="p">,</span> <span class="s2">&quot;PASSWORD&quot;</span><span class="p">,</span> <span class="s2">&quot;DATABASE&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="n">res</span> <span class="o">=</span> <span class="n">my</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;select * from wp_posts&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="n">stuff</span> <span class="o">=</span> <span class="o">[]</span>
+</span><span class='line'><span class="n">res</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">row</span><span class="o">|</span>
+</span><span class='line'>	<span class="c1"># index 0 is ID</span>
+</span><span class='line'>	<span class="c1"># index 1 is author ID -- needs join from wp_users</span>
+</span><span class='line'>	<span class="c1"># index 2 is date</span>
+</span><span class='line'>	<span class="c1"># index 3 is date</span>
+</span><span class='line'>	<span class="c1"># index 4 is post content</span>
+</span><span class='line'>	<span class="c1"># index 5 seems to be title, should check why its repeated</span>
+</span><span class='line'>	<span class="n">stuff</span><span class="o">.</span><span class="n">push</span> <span class="n">row</span><span class="o">[</span><span class="mi">7</span><span class="o">]</span>
+</span><span class='line'>	<span class="n">title</span> <span class="o">=</span> <span class="n">row</span><span class="o">[</span><span class="mi">5</span><span class="o">].</span><span class="n">downcase</span><span class="o">.</span><span class="n">split</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+</span><span class='line'>	<span class="n">date</span> <span class="o">=</span> <span class="n">row</span><span class="o">[</span><span class="mi">2</span><span class="o">].</span><span class="n">split</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span>
+</span><span class='line'>	<span class="n">fname</span> <span class="o">=</span> <span class="s2">&quot;%s%s-%s.markdown&quot;</span> <span class="o">%</span> <span class="o">[</span><span class="n">path</span><span class="p">,</span> <span class="n">date</span><span class="p">,</span> <span class="n">title</span><span class="o">]</span>
+</span><span class='line'>	<span class="n">doc</span> <span class="o">=</span> <span class="n">row</span><span class="o">[</span><span class="mi">4</span><span class="o">]</span>
+</span><span class='line'>	<span class="n">yaml</span> <span class="o">=</span> <span class="o">&lt;&lt;</span><span class="no">YAML</span>
+</span><span class='line'><span class="sh">---</span>
+</span><span class='line'><span class="sh">layout: post</span>
+</span><span class='line'><span class="sh">title: &quot;#{row[5]}&quot;</span>
+</span><span class='line'><span class="sh">date: #{date}</span>
+</span><span class='line'><span class="sh">comments: true</span>
+</span><span class='line'><span class="sh">---</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">YAML</span>
+</span><span class='line'>	<span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span>
+</span><span class='line'>		<span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">yaml</span><span class="p">)</span>
+</span><span class='line'>		<span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+</span><span class='line'>	<span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>This is a terribly simple and hacked up script that will pull in all of your Wordpress posts (Granted you change the parameters for the MySQL connection). All you have to do, upon changing those parameters, is run <code>ruby wp_conv.rb</code> from the octopress directory. After that I would go through the <code>_posts</code> and be sure everything popped out correctly. I noticed that there are two main things to do to fix this script up - I didn't add support for grabbing categories or tags and it will grab each revision of your Wordpress posts. So here's what I did after running this script:</p>
+
+<ul>
+<li>Delete older revisions of posts that were downloaded</li>
+<li>Add <code>categories</code> to YAML at top of each post</li>
+<li>There's an odd issue with UTF-8 conversion
+
+<ul>
+<li>My Vim highlighted the weird spaces, but I had to go through and delete odd-looking characters</li>
+</ul>
+</li>
+</ul>
+
+
+<p>If you don't tend to that UTF-8 issue running <code>rake generate</code> will fail. I didn't experience this for all posts, but it definitely threw me off, so I apologize about that about the script, but I will see if there's a more sound way to handle that via the script.</p>
+
+<p>DISCLAIMER: It's your own fault for running this script if something goes wrong, don't be upset with me, this was a hacked together script for some personal convenience and I figured I 'd share.</p>
+
+<p>Happy hacking</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Next Generation Web Hosting?]]></title>
+    <link href="http://jphenow.com/blog/2011/08/17/next-generation-web-hosting/"/>
+    <updated>2011-08-17T10:38:00-05:00</updated>
+    <id>http://jphenow.com/blog/2011/08/17/next-generation-web-hosting</id>
+    <content type="html"><![CDATA[<p>As I consider trying NoSQL and some other bleeding-edge tools I've come to realize that very few people will let you host these new technologies in the traditional shared-hosting sense. I've found some ways around these restrictions but I continue to keep my out for something out of the ordinary or new that I could try out.</p>
+
+<p><a href="https://www.fluxflex.com/">FluxFlex</a> seems to fit this out-of-the-ordinary bill I had. This host, which is mind blowingly cheap at the moment, is pre-setup to allow simple publishing using <a href="http://git-scm.com">Git</a>. For example, you have a local repository of your web application for some personal development. All you have to do is push to correct branch on github and <em>voila!</em> it will be sync'd on to the live site. It's <em>cool</em> that that comes out of the box, but I can do that by myself right? Simple <a href="http://www.kernel.org/pub/software/scm/git/docs/githooks.html">Git hooking</a> will accomplish pretty much the same thing on our own server setup.</p>
+
+<p>The really cool part is that they allow you to host <a href="http://www.mongodb.org/">MongoDB </a>(it seems that way, don't quote me on that), <a href="http://nodejs.org/">node.js</a> applications, <a href="http://rubyonrails.org/">RoR</a> applications - you can host almost anything. It's a big deal because things like node and Mongo don't jive well with a lot of standard shared hosts these days. Node is especially cool because its an entire process that runs persistently.</p>
+
+<p>I should back up and remind people that there are some very cool, cheap (or better) node.js hosts out there, but I like this because it gives you so many options and at such a reasonable price.</p>
+
+<p>~Phenow</p>
+]]></content>
+  </entry>
+  
+</feed>

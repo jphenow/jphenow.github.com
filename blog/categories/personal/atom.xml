@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: personal | JPhenow]]></title>
+  <link href="http://jphenow.com/blog/categories/personal/atom.xml" rel="self"/>
+  <link href="http://jphenow.com/"/>
+  <updated>2012-12-06T14:02:34-06:00</updated>
+  <id>http://jphenow.com/</id>
+  <author>
+    <name><![CDATA[Jon Phenow]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Developer Interview Lessons]]></title>
+    <link href="http://jphenow.com/blog/2011/09/12/lessons-from-a-job-opportunity/"/>
+    <updated>2011-09-12T11:18:00-05:00</updated>
+    <id>http://jphenow.com/blog/2011/09/12/lessons-from-a-job-opportunity</id>
+    <content type="html"><![CDATA[<p>Finding jobs in any economic climate is stressful, but that doesn't mean you can't give it your all and go after whatever looks interesting. Sure, you'll likely get turned down a few times, but you might end up in an extremely fulfilling and interesting position. I've recently been approaching such a situation. Let's start with some back story though.</p>
+
+<p>To those of you who might know me I'm a Senior Computer Science undergraduate at Saint John's University (Collegeville, not New York). However what most don't know is that I only need a two credit class next semester to graduate, which means I may not need to be a full-time student next semester. That's not to say I wouldn't love an easy last semester outside of the real world, but if I can find a job I find it hard to pay the gross amount of money it costs to go here full-time. Anyways, I'm the type of person who really has a tough time doing things I don't love. I love some very nerdy things, but some things I can't put up with. This is why I've started looking now, so I can try to feel out my options, or somehow have options at all.</p>
+
+<p>Well in the past few weeks I actually have had such opportunities and I figured I'd share with anyone looking to be in developer position my take-aways. Boy did I have a thing or two to learn about interviewing for developer positions. One thing to take note of is that depending on the actual industry the interviewing company is in. The Civil Engineering firm and Financial firm I've done internships for had surprisingly business-like interviews:</p>
+
+<ul>
+<li>Can you talk?</li>
+<li>Are you personable?</li>
+<li>Can you at least present yourself as if you know what you're talking about?</li>
+</ul>
+
+
+<p>Yea, it can be that simple. My theory for why this is is two-fold. First, a lot of smaller, non-computer-technical companies simply don't know how to hire for such a position. They don't know to get a code sample from you, how to view that sample, there are so many things they simply can't and won't do for that process. Second, if this is a huge corporate company they couldn't give a damn what you already know - they just want to know that you think logically enough to work things out so they can train you to do things their way. These are the places I can't handle, personally, because (in the little experience I have with them) I find extreme inconsistency and just poor practice throughout most projects I've come across. I end up wanting to clean up their mess and yet, obviously, you can't because you'll break something and cause havoc.</p>
+
+<p>Let's switch to the other extreme. I interviewed for a Silicon Valley tech company recently. Not a contracting developer house, a place that made their name on their application. This was my first real developer interview, which was actually probably my biggest mistake. I spoke over the phone with their HR rep a few times, then I was presented with a code challenge which, with no time contraints, I was to develop a little program that would basically attempt to spell check some common errors at O(n). Things to note up until this point:</p>
+
+<ul>
+<li>If they give no constraint on a project, do it fast</li>
+<li>Document your code like never before</li>
+<li>No repetition, use methods</li>
+<li>Structure as well as you can</li>
+<li>Use a language you really understand
+
+<ul>
+<li>Not only syntax but core benefits</li>
+<li>Don't take 2 days to pick a language</li>
+</ul>
+</li>
+</ul>
+
+
+<p>To my surprise, I did well on this first part. After this I was told I would have a Skype call with a developer on their team, here comes the real stress. The guy called 10 to 15 minutes late from our original appointment and there was obviously some Thursday afternoon festivities taking place in the background. We did short introductions then opened up a collaborative, browser-based text editor and he said "pick a language and write me a stack." Now I was told this would be a technical interview but I felt like I got hit by a car. Obviously any CS student should understand how to do this, but I was not expecting this for some reason. So I quickly wrote the most simplistic stack I've ever seen in Java. We walked through different scenarios and as we talked I reworked the code. Finally he asked me how, if we have a stack of integers, I would most-quickly get the minimum. I froze - if you can't tell by now, I'm not someone who can code when I know someone is watching. We eventually talked about the answer (duh, keep a second array for tracking minimums), I asked some questions about his work and we departed. I got an email the next day, from the HR rep, with a polite "See ya next time." This was brutal, but I feel lucky to have learned some things from them:</p>
+
+<ul>
+<li>Don't let the interviewer's attitude rattle you
+
+<ul>
+<li>It sucks, but you have to suck it up and deal</li>
+</ul>
+</li>
+<li>Relax
+
+<ul>
+<li>Learn to code with others watching</li>
+</ul>
+</li>
+<li>Review, in your head, basic concepts before such an interview
+
+<ul>
+<li>Companies seem to like to remind you that fundamentals are important</li>
+</ul>
+</li>
+<li>Admit things you don't know</li>
+<li>Ask questions, be interested, but don't be desperate</li>
+</ul>
+
+
+<p>Finally, we come to most recent attempt. I received an unexpected call from an online application for a more local developer contractor. I spoke with HR about setting up a time to come and interview with their hunter, we set up the for the earliest date I could get in. I entered the eerily casual offices in my shirt and tie to meet the people I feel at home with, nerds. I spoke with their extremely fun-to-talk-to hunter for awhile about my progression to becoming a developer - experience with teams, size of projects, etc.. I asked some questions about their business, what a day looks like for a dev until we had some time to tour the office. These tech company offices are very fun - stalked with food, caffeine, very open and friendly. We shook hands and he told me they'd like to give me a code challenge. The next day I received a challenge involving setting up a web application that would connect to a SOAP server. They listed details such as what should be validated, rules for end users, etc.. Pretty straightforward - I even got to pick my favorite framework flavor! So I sketched a basic outline of the app and away we go. I had a week to present a clean project so sleep was mostly out the window with school/student job starting. I pounded something clean enough out and turned in a day early, because there was no way I'd have any more time to work on it. I loved this project - this is the work I live for, but obviously I did some things wrong so let's have a look:</p>
+
+<ul>
+<li>Be personable - even its a dev company people need to be able to communicate well</li>
+<li>Don't forget your original knowledge around projects of this nature
+
+<ul>
+<li>Example: Web application means validate the heck out of text fields</li>
+<li>Its tempting to blindly follow the specs and forget how to handle something like a web app</li>
+</ul>
+</li>
+<li>Check that your server is able to perform all you require
+
+<ul>
+<li>I realized late on that my PHP5 install was not compiled with SOAP</li>
+</ul>
+</li>
+<li>Do things that make sense
+
+<ul>
+<li>Example: if there's an HTML table being filled, sort it</li>
+</ul>
+</li>
+<li>Re-read the specs before turning in
+
+<ul>
+<li>You may think you remember it all after reading it 1000 times, but you don't</li>
+</ul>
+</li>
+</ul>
+
+
+<p>So no, I didn't get this latest job, but I'll admit, I'm no professional PHP developer. Their reviewer pointed out some gaping holes that I'll admit I could've taken care of. Really part of the problem is my lack of experience which is why I don't see not getting a job as a failure. I learned a ton from the reviewer's notes on my application and I can use that to make myself a better developer. That's one big thing people need to take from such interviews - learn from them, don't get upset. Take what you can from an interview, get feedback, evolve yourself. Also note that a lot of developer houses prefer hiring people they know, people they see at conferences and open houses - make yourself a familiar face in the community of developers.</p>
+
+<p>I hope this was as helful for you to read as it was for me to write!</p>
+]]></content>
+  </entry>
+  
+</feed>

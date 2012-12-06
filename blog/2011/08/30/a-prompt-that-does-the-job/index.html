@@ -1,0 +1,347 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>A Prompt That Does the Job - JPhenow</title>
+  <meta name="author" content="Jon Phenow">
+
+  
+  <meta name="description" content="I was delighted enough to stumble across a great explanation on boosting your development environment some time ago and I&#8217;ve continued to work &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://jphenow.com/blog/2011/08/30/a-prompt-that-does-the-job/">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="JPhenow" type="application/atom+xml">
+  
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11308027-3']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner">
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:jphenow.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main">
+	<li><a href="/blog/archives">Articles</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">A Prompt That Does the Job</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-30T21:05:00-05:00" pubdate data-updated="true">Aug 30<span>th</span>, 2011</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>I was delighted enough to stumble across a great explanation on boosting your development environment some time ago and I&#8217;ve continued to work away with forming it to my own tastes. As of late I have not been able to find this great guide I had used, but I implemented most of its changes which are lingering on my <a href="https://github.com/jphenow/home_config/blob/master/.bashrc">.bashrc</a>, I suggest taking a gander.</p>
+
+<p>Back to the real reason for the post though. One of my favorite features of my latest bashrc edits is the fact that I can see my curren&#8217;t working branch in the prompt when I&#8217;m under a working git directory. This was great and all it needs is a simple tool, that seems to come with most git installs, <code>__git_ps1</code>. So with this I was able to edit my current <code>PS1</code> setting to something like:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">PS1</span><span class="o">=</span><span class="s1">&#39;${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[0;36m\]$(__git_ps1 &quot;(%s)&quot;)\[\033[01;34m\] \w \$\[\033[00m\] &#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>But of course, the important part to note is the <code>$( __git_ps1 "(%s)" )</code> which uses this simple little git tool to take care of our magic. This worked great for me for a long time, but alas times changed. I came upon a work computer that had no such tool (<code>__git_ps1</code>). I was upset to see that upon every new prompt (between <em>every</em> single command) I received a lovely error notifying me that <strong>SOMETHING DOESN&#8217;T WORK</strong>. So I spent some time attempting to remedy this.</p>
+
+<p>Luckily I was able to set aside a little time to at least hide errors when we come across one such computer that for some silly reason doesn&#8217;t have this little golden tool:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">PS1</span><span class="o">=</span><span class="s1">&#39;${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[0;36m\]$(git_ps1 &quot;(%s)&quot;)\[\033[01;34m\] \w \$\[\033[00m\] &#39;</span>
+</span><span class='line'>
+</span><span class='line'>git_ps1 <span class="o">()</span>
+</span><span class='line'><span class="o">{</span>
+</span><span class='line'>  __git_ps1 1&gt;/dev/null 2&gt;/dev/null <span class="c"># Grab exit status of an attempted run</span>
+</span><span class='line'>  <span class="nv">err</span><span class="o">=</span><span class="nv">$?</span>
+</span><span class='line'>  <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;$err&quot;</span> <span class="o">==</span> <span class="s2">&quot;0&quot;</span> <span class="o">]</span>; <span class="k">then</span> <span class="c"># If you can find tool</span>
+</span><span class='line'>      <span class="nv">ps</span><span class="o">=</span><span class="k">$(</span> __git_ps1 <span class="s2">&quot;(%s)&quot;</span> <span class="k">)</span>
+</span><span class='line'>      <span class="nb">echo</span> -ne <span class="s2">&quot;$ps&quot;</span> <span class="c"># Execute me some magic</span>
+</span><span class='line'>  <span class="k">else</span> <span class="c"># :( no cool stuff for this run</span>
+</span><span class='line'>      <span class="nb">echo</span> -ne <span class="s2">&quot;&quot;</span> <span class="c"># Don&#39;t show me errors</span>
+</span><span class='line'>  <span class="k">fi</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So I just run it once hoping to find the exit status of attempting to run the tool then, based on that we can decide if we should use it on the prompt. Pretty simple!</p>
+
+<p>Next on the free-time-y docket:
+* Clean the PS1 setting
+* Setup some simpler vars for colors
+* Throw reusables of all of the bashrc into some methods</p>
+
+<p>Happy hacking!</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Jon Phenow</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-08-30T21:05:00-05:00" pubdate data-updated="true">Aug 30<span>th</span>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/development/'>development</a>, <a class='category' href='/blog/categories/linux/'>linux</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://jphenow.com/blog/2011/08/30/a-prompt-that-does-the-job/" data-via="jphenow" data-counturl="http://jphenow.com/blog/2011/08/30/a-prompt-that-does-the-job/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/08/25/fully-switched-to-octopress/" title="Previous Post: Fully Switched to Octopress">&laquo; Fully Switched to Octopress</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/09/12/lessons-from-a-job-opportunity/" title="Next Post: Developer Interview Lessons">Developer Interview Lessons &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/10/12/an-introduction-to-mixing-refinery-and-spree/">How I Started Using Spree and RefineryCMS Together</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/10/25/an-rvm-script-that-hits-the-ground-running/">First Ruby/Rails impressions and a script to have you hit-the-ground-running</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/09/12/lessons-from-a-job-opportunity/">Developer Interview Lessons</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/30/a-prompt-that-does-the-job/">A Prompt That Does the Job</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2011/08/25/fully-switched-to-octopress/">Fully Switched to Octopress</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/jphenow">@jphenow</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'jphenow',
+            count: 2,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("jphenow", 3, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/jphenow" class="twitter-follow-button" data-show-count="true">Follow @jphenow</a>
+  
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo">Copyright &copy; 2012
+
+    Jon Phenow
+
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'jphenow';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://jphenow.com/blog/2011/08/30/a-prompt-that-does-the-job/';
+        var disqus_url = 'http://jphenow.com/blog/2011/08/30/a-prompt-that-does-the-job/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+</body>
+</html>

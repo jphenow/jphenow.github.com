@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: blog | JPhenow]]></title>
+  <link href="http://jphenow.com/blog/categories/blog/atom.xml" rel="self"/>
+  <link href="http://jphenow.com/"/>
+  <updated>2012-12-06T14:02:34-06:00</updated>
+  <id>http://jphenow.com/</id>
+  <author>
+    <name><![CDATA[Jon Phenow]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Fully Switched to Octopress]]></title>
+    <link href="http://jphenow.com/blog/2011/08/25/fully-switched-to-octopress/"/>
+    <updated>2011-08-25T12:18:00-05:00</updated>
+    <id>http://jphenow.com/blog/2011/08/25/fully-switched-to-octopress</id>
+    <content type="html"><![CDATA[<p>I did it! I've made the switch! Loving it so far. This framework is so much easier for someone who is used to ssh, git, and vim. I feel like I can dig into the guts more easily. Not that you couldn't dig into the Wordpress guts but it usually made me feeling like I was trying to work on Audi when all of my mechanic experience was with Ford. Wordpress, coming from an understanding of MVC patterns, feels poorly built (hacked together really).</p>
+
+<p>Quickly, now, lets talk conversion. I switched from Wordpress and of course, being a CS major, I can't manually copy things to the new blog. That's silly to me. So what I did was make a quick little Ruby script!</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (wp_conv.rb)</span> <a href='/downloads/code/wp_conv.rb'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="nb">require</span> <span class="s2">&quot;mysql&quot;</span>
+</span><span class='line'><span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;./source/_posts/ruby/&quot;</span>
+</span><span class='line'><span class="n">my</span> <span class="o">=</span> <span class="no">Mysql</span><span class="o">::</span><span class="kp">new</span><span class="p">(</span><span class="s2">&quot;SERVER&quot;</span><span class="p">,</span> <span class="s2">&quot;USER&quot;</span><span class="p">,</span> <span class="s2">&quot;PASSWORD&quot;</span><span class="p">,</span> <span class="s2">&quot;DATABASE&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="n">res</span> <span class="o">=</span> <span class="n">my</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;select * from wp_posts&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="n">stuff</span> <span class="o">=</span> <span class="o">[]</span>
+</span><span class='line'><span class="n">res</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">row</span><span class="o">|</span>
+</span><span class='line'>	<span class="c1"># index 0 is ID</span>
+</span><span class='line'>	<span class="c1"># index 1 is author ID -- needs join from wp_users</span>
+</span><span class='line'>	<span class="c1"># index 2 is date</span>
+</span><span class='line'>	<span class="c1"># index 3 is date</span>
+</span><span class='line'>	<span class="c1"># index 4 is post content</span>
+</span><span class='line'>	<span class="c1"># index 5 seems to be title, should check why its repeated</span>
+</span><span class='line'>	<span class="n">stuff</span><span class="o">.</span><span class="n">push</span> <span class="n">row</span><span class="o">[</span><span class="mi">7</span><span class="o">]</span>
+</span><span class='line'>	<span class="n">title</span> <span class="o">=</span> <span class="n">row</span><span class="o">[</span><span class="mi">5</span><span class="o">].</span><span class="n">downcase</span><span class="o">.</span><span class="n">split</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+</span><span class='line'>	<span class="n">date</span> <span class="o">=</span> <span class="n">row</span><span class="o">[</span><span class="mi">2</span><span class="o">].</span><span class="n">split</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span>
+</span><span class='line'>	<span class="n">fname</span> <span class="o">=</span> <span class="s2">&quot;%s%s-%s.markdown&quot;</span> <span class="o">%</span> <span class="o">[</span><span class="n">path</span><span class="p">,</span> <span class="n">date</span><span class="p">,</span> <span class="n">title</span><span class="o">]</span>
+</span><span class='line'>	<span class="n">doc</span> <span class="o">=</span> <span class="n">row</span><span class="o">[</span><span class="mi">4</span><span class="o">]</span>
+</span><span class='line'>	<span class="n">yaml</span> <span class="o">=</span> <span class="o">&lt;&lt;</span><span class="no">YAML</span>
+</span><span class='line'><span class="sh">---</span>
+</span><span class='line'><span class="sh">layout: post</span>
+</span><span class='line'><span class="sh">title: &quot;#{row[5]}&quot;</span>
+</span><span class='line'><span class="sh">date: #{date}</span>
+</span><span class='line'><span class="sh">comments: true</span>
+</span><span class='line'><span class="sh">---</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">YAML</span>
+</span><span class='line'>	<span class="no">File</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span>
+</span><span class='line'>		<span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">yaml</span><span class="p">)</span>
+</span><span class='line'>		<span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+</span><span class='line'>	<span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>This is a terribly simple and hacked up script that will pull in all of your Wordpress posts (Granted you change the parameters for the MySQL connection). All you have to do, upon changing those parameters, is run <code>ruby wp_conv.rb</code> from the octopress directory. After that I would go through the <code>_posts</code> and be sure everything popped out correctly. I noticed that there are two main things to do to fix this script up - I didn't add support for grabbing categories or tags and it will grab each revision of your Wordpress posts. So here's what I did after running this script:</p>
+
+<ul>
+<li>Delete older revisions of posts that were downloaded</li>
+<li>Add <code>categories</code> to YAML at top of each post</li>
+<li>There's an odd issue with UTF-8 conversion
+
+<ul>
+<li>My Vim highlighted the weird spaces, but I had to go through and delete odd-looking characters</li>
+</ul>
+</li>
+</ul>
+
+
+<p>If you don't tend to that UTF-8 issue running <code>rake generate</code> will fail. I didn't experience this for all posts, but it definitely threw me off, so I apologize about that about the script, but I will see if there's a more sound way to handle that via the script.</p>
+
+<p>DISCLAIMER: It's your own fault for running this script if something goes wrong, don't be upset with me, this was a hacked together script for some personal convenience and I figured I 'd share.</p>
+
+<p>Happy hacking</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Next Generation Web Hosting?]]></title>
+    <link href="http://jphenow.com/blog/2011/08/17/next-generation-web-hosting/"/>
+    <updated>2011-08-17T10:38:00-05:00</updated>
+    <id>http://jphenow.com/blog/2011/08/17/next-generation-web-hosting</id>
+    <content type="html"><![CDATA[<p>As I consider trying NoSQL and some other bleeding-edge tools I've come to realize that very few people will let you host these new technologies in the traditional shared-hosting sense. I've found some ways around these restrictions but I continue to keep my out for something out of the ordinary or new that I could try out.</p>
+
+<p><a href="https://www.fluxflex.com/">FluxFlex</a> seems to fit this out-of-the-ordinary bill I had. This host, which is mind blowingly cheap at the moment, is pre-setup to allow simple publishing using <a href="http://git-scm.com">Git</a>. For example, you have a local repository of your web application for some personal development. All you have to do is push to correct branch on github and <em>voila!</em> it will be sync'd on to the live site. It's <em>cool</em> that that comes out of the box, but I can do that by myself right? Simple <a href="http://www.kernel.org/pub/software/scm/git/docs/githooks.html">Git hooking</a> will accomplish pretty much the same thing on our own server setup.</p>
+
+<p>The really cool part is that they allow you to host <a href="http://www.mongodb.org/">MongoDB </a>(it seems that way, don't quote me on that), <a href="http://nodejs.org/">node.js</a> applications, <a href="http://rubyonrails.org/">RoR</a> applications - you can host almost anything. It's a big deal because things like node and Mongo don't jive well with a lot of standard shared hosts these days. Node is especially cool because its an entire process that runs persistently.</p>
+
+<p>I should back up and remind people that there are some very cool, cheap (or better) node.js hosts out there, but I like this because it gives you so many options and at such a reasonable price.</p>
+
+<p>~Phenow</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Altering modes for public communications on this medium]]></title>
+    <link href="http://jphenow.com/blog/2011/08/08/altering-modes-for-public-communications-on-this-medium/"/>
+    <updated>2011-08-08T00:00:00-05:00</updated>
+    <id>http://jphenow.com/blog/2011/08/08/altering-modes-for-public-communications-on-this-medium</id>
+    <content type="html"><![CDATA[<p>Translation: I'm switching blogging frameworks in the coming weeks out of pure interest and to feed my adventurous nature.</p>
+
+<p>For anyone that knows me personally I like to hop around projects, try new projects and really just explore the playing field. Not to toot my own horn, but I'm actually really good at switching gears like that. So pretty soon you may see me using a blog framework called <a href="http://octopress.org/" title="Octopress" target="_blank">Octopress</a>. Like I said, this is mostly out of interest in new things. Also, it uses Ruby and that happens to be the language I'll be familiarizing myself with for a new project! More on that later.</p>
+
+<p>Do not fret! I have no bad blood for Wordpress (mostly), I'm not moving because Wordpress is getting terrible or anything. There are plenty of things that are good/bad about Wordpress IMHO, but one could say that about a lot of blogging web applications. For now you'll see the old site laying around and eventually you may see some new stuff popping up - I'll be prepping it on another domain or subdomain for now to keep interruption to my current site at minimum.</p>
+
+<p>Another short note: it seems like I say this a lot, but I should be more and more available as my Summer internship wraps up. There should be an interesting article surfacing on that soon too.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Wordpress Plugin development]]></title>
+    <link href="http://jphenow.com/blog/2011/05/29/wordpress-plugin-development/"/>
+    <updated>2011-05-29T00:00:00-05:00</updated>
+    <id>http://jphenow.com/blog/2011/05/29/wordpress-plugin-development</id>
+    <content type="html"><![CDATA[<p>Well I've decided to keep the site like this now. I found a way to make this style doable and it seems silly to continually seek out the most minimalist style when I could just use what I have and do something useful with time. Speaking of being useful with my time; I've been working on a Wordpress plugin that makes it easy to display some article properties in a nice way. When working with a friend of mine to create a blogging site in which we introduce a number of Open Source programs and tutorial them for our readers. After writing a few articles we realized something: not everyone writes at the same level; that is, some of us expect more from our readers. We also noticed that some of our applications weren't totally cross platform. This sparked an idea for a Wordpress plugin. To simplify telling our readers, easily, what platforms and how difficult an article or tutorial will be.</p>
+
+<p>First, I read the introduction <a title="Writing a plugin" href="http://codex.wordpress.org/Writing_a_Plugin" target="_blank">Codex page</a> for plugin development. This directed me across several of the Wordpress documentation pages so that I could find a basic understanding for how to approach my plugin. This was my first real plugin for something so I was very interested to see how the general idea is handled. Since its a plugin and you want someone to be able Install and Activate and start using, with no further customization. To a certain extent this seems limiting from a developer perspective because you cannot intervene anywhere else in your code to get your plugin to work, because if you had to do that then anyone else installing and using your plugin would have to get their hands dirty to get the plugin to work.</p>
+
+<p>So Wordpress handles plugins by allowing developers to "hook" functions to standard Wordpress functions. For instance, when someone loads a Wordpress page there is a function called "the_content" that is run, which calls to the database and gets all of the content for that post/page. Without going into details about header information I must have this in php file:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">function</span> <span class="nx">plugin_content</span> <span class="p">(</span> <span class="nx">$str</span> <span class="p">)</span> <span class="p">{</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="nx">$str</span> <span class="o">=</span> <span class="s2">&quot;Hello plugin&quot;</span> <span class="o">+</span> <span class="nx">$str</span><span class="p">;</span>
+</span><span class='line'><span class="k">return</span> <span class="nx">$str</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span><span class='line'><span class="nx">add_action</span><span class="p">(</span> <span class="s1">&#39;the_content&#39;</span><span class="p">,</span> <span class="s1">&#39;plugin_content&#39;</span> <span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Quick notice: we gain access to the post content by using a parameter, Wordpress doesn't make it too obvious that you have access to such parameters, but as far as I can tell, you have access to what the attachable function's return. That is, here we have access to what the_content() would return. You want to be sure to return the one parameter you accept. <a title="Actions" href="http://codex.wordpress.org/Plugin_API#Actions" target="_blank">Some explanation</a></p>
+
+<p>This simple plugin will add "Hello plugin" at the beginning of each post content on loading each page. It will not alter the database information, but will only add the content on loading of each post. Part of the beauty of plugins is that we don't have to screw up a user's database in the process. One thing you may realize is that this is only part of what we need in a plugin like I want to achieve. I want something where each post has its own properties, that stick with that post. So we need to also handle usage of meta boxes on the post. Here there are a few options: let the user utilize meta boxes without guidance (dangerous, may render plugin near useless), fill in meta boxes using a little html magic, or fill in inivisble meta boxes. The last option is ideal because this stops the user from accidentally changing something, which could break the plugin or at least the reading of one of their posts. To add and save meta boxes we need something like:
+<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="err">/&lt;em&gt;*</span>
+</span><span class='line'><span class="o">*</span> <span class="nx">Setup</span> <span class="nx">meta</span> <span class="nx">box</span> <span class="nx">spot</span> <span class="k">in</span> <span class="nx">edit</span> <span class="nx">post</span> <span class="nx">action</span>
+</span><span class='line'><span class="o">&lt;</span><span class="sr">/em&gt;/</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="kd">function</span> <span class="nx">metabox</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'><span class="c1">// Post meta box&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="nx">add_meta_box</span><span class="p">(</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// this is HTML id of the box on edit screen</span>
+</span><span class='line'>        <span class="s1">&#39;difficulty&#39;</span><span class="p">,</span>
+</span><span class='line'><span class="c1">// title of the box</span>
+</span><span class='line'>        <span class="s1">&#39;Platforms &amp;amp;amp; Difficulty Plugin&#39;</span><span class="p">,</span>
+</span><span class='line'><span class="c1">// function to be called to display the checkboxes, see the function below</span>
+</span><span class='line'>        <span class="s1">&#39;meta_box_content&#39;</span><span class="p">,</span>
+</span><span class='line'><span class="c1">// on which edit screen the box should appear</span>
+</span><span class='line'>        <span class="s1">&#39;post&#39;</span><span class="p">,</span>
+</span><span class='line'><span class="c1">// part of page where the box should appear</span>
+</span><span class='line'>        <span class="s1">&#39;side&#39;</span><span class="p">,</span>
+</span><span class='line'><span class="c1">// priority of the box</span>
+</span><span class='line'>        <span class="s1">&#39;default&#39;</span>
+</span><span class='line'><span class="p">);</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span><span class='line'><span class="c1">// at the add_meta_boxes hook run our function and create the meta box</span>
+</span><span class='line'><span class="nx">add_action</span><span class="p">(</span> <span class="s1">&#39;add_meta_boxes&#39;</span><span class="p">,</span> <span class="s1">&#39;metabox&#39;</span> <span class="p">);</span>
+</span><span class='line'><span class="err">/&lt;em&gt;*</span>
+</span><span class='line'><span class="o">*</span> <span class="nx">Fill</span> <span class="k">in</span> <span class="nx">the</span> <span class="nx">meta</span> <span class="nx">box</span> <span class="kd">with</span> <span class="nx">check</span> <span class="nx">boxes</span> <span class="nx">and</span> <span class="nx">radio</span> <span class="nx">buttons</span>
+</span><span class='line'><span class="o">&lt;</span><span class="sr">/em&gt;/</span>
+</span><span class='line'><span class="kd">function</span> <span class="nx">meta_box_content</span><span class="p">(</span> <span class="nx">$post_id</span> <span class="p">)</span> <span class="p">{</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="nx">global</span> <span class="nx">$post</span><span class="p">;</span> <span class="c1">// Needed if you want to access global post information.</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// nonce field for security check, you can have the same</span>
+</span><span class='line'><span class="c1">// nonce field for all your meta boxes of same plugin</span>
+</span><span class='line'><span class="nx">wp_nonce_field</span><span class="p">(</span> <span class="nx">plugin_basename</span><span class="p">(</span> <span class="nx">__FILE__</span> <span class="p">),</span> <span class="s1">&#39;nonce&#39;</span> <span class="p">);</span>
+</span><span class='line'><span class="c1">// make more unique - assures security between post</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// Adds the invisible meta field for necessary data</span>
+</span><span class='line'><span class="c1">// &quot;_&quot; prefix makes field invisible for user editing</span>
+</span><span class='line'><span class="nx">add_post_meta</span><span class="p">(</span>
+</span><span class='line'>    <span class="nx">$post_id</span><span class="p">,</span> <span class="c1">// Post that is receiving the values</span>
+</span><span class='line'>    <span class="s1">&#39;_some_val&#39;</span><span class="p">,</span> <span class="c1">// Meta variable name</span>
+</span><span class='line'>    <span class="s2">&quot;some info&quot;</span><span class="p">,</span> <span class="c1">// Value being entered into the variable &#39;_some_val&#39;</span>
+</span><span class='line'>    <span class="kc">true</span> <span class="c1">// Make unique, so don&#39;t allow multiple copies to be created</span>
+</span><span class='line'><span class="p">);</span> <span class="c1">// Since we make sure the variable is only</span>
+</span><span class='line'><span class="c1">// allowed to be created if unique, I run this</span>
+</span><span class='line'><span class="c1">// at the beginning of edit action to be sure</span>
+</span><span class='line'><span class="c1">// the variable exists before I start working with the post</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">$val</span> <span class="o">=</span> <span class="nx">get_post_meta</span><span class="p">(</span> <span class="nx">$post_id</span><span class="p">,</span> <span class="s1">&#39;_some_val&#39;</span><span class="p">,</span> <span class="kc">true</span> <span class="p">);</span> <span class="c1">// Gets the value for</span>
+</span><span class='line'><span class="c1">// &quot;_some_val,&quot; which would be &quot;some info&quot; if we just created, but</span>
+</span><span class='line'><span class="c1">// could be some unique info if the user has interacted with the plugin on this post before.</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">// Getting post meta information here so that I can fill in our html so that it</span>
+</span><span class='line'><span class="c1">// looks like the post &quot;remembered&quot; its meta information.</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">echo</span> <span class="s2">&quot;&quot;</span><span class="p">;</span> <span class="c1">// Insert some html and use get_post_meta variables to fill it in so it looks the way they saved it</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">return</span> <span class="nx">$post_id</span><span class="p">;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">}</span> <span class="c1">// we don&#39;t need to add_action because its referred as the meta box function in our above</span>
+</span><span class='line'><span class="c1">// function - its registered as the function that actually fills it in&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="err">/&lt;em&gt;*</span>
+</span><span class='line'><span class="o">*</span> <span class="nx">Save</span> <span class="nx">our</span> <span class="nx">meta</span> <span class="nx">box</span> <span class="nx">data</span> <span class="nx">into</span> <span class="nx">invisble</span> <span class="nx">meta</span> <span class="nx">fields</span>
+</span><span class='line'><span class="o">&lt;</span><span class="sr">/em&gt;/</span>
+</span><span class='line'><span class="kd">function</span> <span class="nx">save_meta</span><span class="p">(</span> <span class="nx">$post_id</span> <span class="p">)</span> <span class="p">{</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">pre</span><span class="o">&gt;&lt;</span><span class="nx">code</span><span class="o">&gt;</span><span class="nx">global</span> <span class="nx">$post</span><span class="p">;</span>
+</span><span class='line'><span class="c1">// check if this isn&#39;t an auto save</span>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span> <span class="nx">defined</span><span class="p">(</span> <span class="s1">&#39;DOING_AUTOSAVE&#39;</span> <span class="p">)</span> <span class="o">&amp;</span><span class="nx">amp</span><span class="p">;</span><span class="nx">amp</span><span class="p">;</span><span class="o">&amp;</span><span class="nx">amp</span><span class="p">;</span><span class="nx">amp</span><span class="p">;</span> <span class="nx">DOING_AUTOSAVE</span> <span class="p">){</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nx">$post_id</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="k">else</span><span class="p">{</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="nx">wp_verify_nonce</span><span class="p">(</span> <span class="nx">$_POST</span><span class="p">[</span><span class="s1">&#39;nonce&#39;</span><span class="p">],</span> <span class="nx">plugin_basename</span><span class="p">(</span> <span class="nx">__FILE__</span> <span class="p">)</span> <span class="p">)</span> <span class="p">){</span>
+</span><span class='line'><span class="c1">// be sure the _POST[&#39;nonce&#39;] matches your nonce from above - must be the</span>
+</span><span class='line'><span class="c1">// same to work, but should be unique from other things</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="k">return</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// called after a post or page is saved and not on autosave</span>
+</span><span class='line'>    <span class="k">if</span><span class="p">(</span> <span class="nx">$parent_id</span> <span class="o">=</span> <span class="nx">wp_is_post_revision</span><span class="p">(</span> <span class="nx">$post_id</span> <span class="p">)</span> <span class="p">){</span>
+</span><span class='line'>        <span class="nx">$post_id</span> <span class="o">=</span> <span class="nx">$parent_id</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// now store data in custom fields based on checkboxes/radios selected</span>
+</span><span class='line'>    <span class="nx">$val</span> <span class="o">=</span> <span class="nx">$_POST</span><span class="p">[</span><span class="s1">&#39;_some_val&#39;</span><span class="p">];</span>
+</span><span class='line'>    <span class="c1">// grabs the current data from the html we used in the above function</span>
+</span><span class='line'>    <span class="nx">update_post_meta</span><span class="p">(</span> <span class="nx">$post_id</span><span class="p">,</span> <span class="s1">&#39;_some_val&#39;</span><span class="p">,</span> <span class="nx">$val</span> <span class="p">);</span>
+</span><span class='line'><span class="c1">// updates information with what grabbed from the post submit</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/code&gt;&lt;/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="p">}</span>
+</span><span class='line'><span class="nx">add_action</span><span class="p">(</span>  <span class="s1">&#39;save_post&#39;</span><span class="p">,</span> <span class="s1">&#39;save_meta&#39;</span> <span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+Now with the above set of functions we just need to utilize our meta variables to insert something into the post, as I showed earlier in this post. If you'd like to see my project where I put all of this information together go to <a href="https://github.com/jphenow/WP-Difficulty-and-Platform/blob/master/difficulty.php" target="_blank">my github</a>. As development proceeds I will be adding a global settings page where users can change everything about the plugin. Currently my plugin allows them to pick associated platforms so I'd like to allow them to change the icons and even what they're including on each page. For instance instead of the plugin specifying platform or difficulty they can specify what general people or topics are being discussed on a post.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Mid-Transition]]></title>
+    <link href="http://jphenow.com/blog/2011/05/27/mid-transition/"/>
+    <updated>2011-05-27T00:00:00-05:00</updated>
+    <id>http://jphenow.com/blog/2011/05/27/mid-transition</id>
+    <content type="html"><![CDATA[<p>Working on transitioning the blog! Hoping to work on a a better way of  doing this so I might do some crazy magic here pretty soon. I’d like to  move to a NoSQL method, but my current host isn’t a fan of allowing me  to run what I’d prefer at a reasonable price! Lots to do if this goes  through so, I know…. I’m not a <em>huge</em> fan of the current look, but we’ll see what I can work in to make this look decent before I hope to move.</p>
+]]></content>
+  </entry>
+  
+</feed>

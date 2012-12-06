@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: spree | JPhenow]]></title>
+  <link href="http://jphenow.com/blog/categories/spree/atom.xml" rel="self"/>
+  <link href="http://jphenow.com/"/>
+  <updated>2012-12-06T14:02:34-06:00</updated>
+  <id>http://jphenow.com/</id>
+  <author>
+    <name><![CDATA[Jon Phenow]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[How I Started Using Spree and RefineryCMS Together]]></title>
+    <link href="http://jphenow.com/blog/2012/10/12/an-introduction-to-mixing-refinery-and-spree/"/>
+    <updated>2012-10-12T13:16:00-05:00</updated>
+    <id>http://jphenow.com/blog/2012/10/12/an-introduction-to-mixing-refinery-and-spree</id>
+    <content type="html"><![CDATA[<p><a href="http://refinerycms.com/">RefineryCMS</a>
+is a great boilerplate for creating a CMS in Rails.
+It basically gives you all the structure you need to build a custom CMS,
+with lots of features built in and extensions to add.
+<a href="http://spreecommerce.com/">Spree</a> offers similar
+benefits but directed at being a shopping cart web application. I wanted to use
+both of these tools in tandem.</p>
+
+<p>I tried a number of things in an attempt to mix the two together in one unifying
+application. Finally I stumbled across
+<a href="https://github.com/adrianmacneil/spree-refinery-authentication">spree-refinery-authentication</a>.
+This gem not only explains how to put the two things under one application, but
+gives you the ability to have both authentication systems work together.</p>
+
+<p>To get this basic merge, I literally just followed the steps on spree-refiner-authentication
+README and I was off. I still have some work to do to make the two cooperate seemlessly
+for an end-user, but more posts to come as I'm able to work through this.</p>
+]]></content>
+  </entry>
+  
+</feed>
