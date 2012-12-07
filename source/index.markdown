@@ -20,5 +20,4 @@ Contact me at j.phenow[at]gmail[dot]com or one of the links below for further in
 
 
 [{% img right nofancybox /images/mediaicons/PNG/32px/linkedin.png LinkedIn %}](http://www.linkedin.com/pub/jon-phenow/20/5b/3bb)
-
 [{% img right nofancybox /images/mediaicons/PNG/32px/github.png Github %}](http://github.com/jphenow)
