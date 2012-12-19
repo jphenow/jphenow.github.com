@@ -16,7 +16,7 @@ I love to hop around technologies and languages. I'm consistently seeking to lea
 create things intelligently. Sometimes, when I find some time, I try to share my thoughts and
 experience here.
 
-Contact me at j.phenow[at]gmail[dot]com or one of the links below for further information.
+Contact me at <j.phenow@gmail.com> or one of the links below for further information.
 
 
 [{% img right nofancybox /images/mediaicons/PNG/32px/linkedin.png LinkedIn %}](http://www.linkedin.com/pub/jon-phenow/20/5b/3bb)
