@@ -229,9 +229,10 @@ or send me a pull request for the <a href="http://github.com/imathis/octopress/t
 <script src="/javascripts/jquery.fancybox.pack.js"></script>
 <script type="text/javascript">
 (function($){
-	$('.fancybox').fancybox();
+	$('.fancybox').not(".nofancybox").fancybox();
 })(jQuery);
-</script> <!-- Delete or comment this line to disable Fancybox -->
+</script>
+ <!-- Delete or comment this line to disable Fancybox -->
 
 
 <script type="text/javascript">

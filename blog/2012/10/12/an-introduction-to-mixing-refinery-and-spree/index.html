@@ -171,9 +171,10 @@ for an end-user, but more posts to come as I&#8217;m able to work through this.<
 <script src="/javascripts/jquery.fancybox.pack.js"></script>
 <script type="text/javascript">
 (function($){
-	$('.fancybox').fancybox();
+	$('.fancybox').not(".nofancybox").fancybox();
 })(jQuery);
-</script> <!-- Delete or comment this line to disable Fancybox -->
+</script>
+ <!-- Delete or comment this line to disable Fancybox -->
 
 
 <script type="text/javascript">

@@ -143,9 +143,10 @@ entirely with CSS, and is supported by all modern browsers as well as IE8 and up
 <script src="/javascripts/jquery.fancybox.pack.js"></script>
 <script type="text/javascript">
 (function($){
-	$('.fancybox').fancybox();
+	$('.fancybox').not(".nofancybox").fancybox();
 })(jQuery);
-</script> <!-- Delete or comment this line to disable Fancybox -->
+</script>
+ <!-- Delete or comment this line to disable Fancybox -->
 
 
 <script type="text/javascript">

@@ -263,9 +263,10 @@ Add <code>lang:your_language</code> to force highlighting if the filename doesn&
 <script src="/javascripts/jquery.fancybox.pack.js"></script>
 <script type="text/javascript">
 (function($){
-	$('.fancybox').fancybox();
+	$('.fancybox').not(".nofancybox").fancybox();
 })(jQuery);
-</script> <!-- Delete or comment this line to disable Fancybox -->
+</script>
+ <!-- Delete or comment this line to disable Fancybox -->
 
 
 <script type="text/javascript">

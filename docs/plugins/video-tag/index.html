@@ -143,9 +143,10 @@ Reloading the page with the url hash <a href="#flash-test">#flash-test</a> and y
 <script src="/javascripts/jquery.fancybox.pack.js"></script>
 <script type="text/javascript">
 (function($){
-	$('.fancybox').fancybox();
+	$('.fancybox').not(".nofancybox").fancybox();
 })(jQuery);
-</script> <!-- Delete or comment this line to disable Fancybox -->
+</script>
+ <!-- Delete or comment this line to disable Fancybox -->
 
 
 <script type="text/javascript">
